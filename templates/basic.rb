@@ -6,7 +6,8 @@ run "rm public/robots.txt"
 run "rm public/images/rails.png"
 run "rm -f public/javascripts/*"
 
-git :commit => "-a -m 'removed files: README, 
+git :add => "-u"
+git :commit => "-m 'removed files: README, 
                                       public/index.html, 
                                       public/favicon.ico, 
                                       public/robots.txt, 
