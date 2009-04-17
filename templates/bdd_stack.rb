@@ -1,14 +1,10 @@
-gem('rspec', :lib => false, :version => ">= 1.2.4")
-gem('rspec-rails', :lib => false, :version => ">= 1.2.4")
+# add rspec and rspec-rails gem dependencies in config/environments/test.rb
+gem('rspec', :lib => false, :version => ">= 1.2.4", :env => 'test')
+gem('rspec-rails', :lib => false, :version => ">= 1.2.4", :env => 'test')
 
-# in config/environments/test.rb
-# config.gem "rspec", :lib => false, :version => ">= 1.2.4" 
-# config.gem "rspec-rails", :lib => false, :version => ">= 1.2.4"
-# gem
-# gem rspec-rails-1.2.4
-# gem rspec-1.2.4
+rake("gems", :env => "test")
+generate("rspec")
 
-# generate("rspec")
 
 
 #gem install term-ansicolor treetop diff-lcs nokogiri builder
