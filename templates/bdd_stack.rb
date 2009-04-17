@@ -2,17 +2,20 @@
 gem('rspec', :lib => false, :version => ">= 1.2.4", :env => 'test')
 gem('rspec-rails', :lib => false, :version => ">= 1.2.4", :env => 'test')
 
-rake("gems", :env => "test")
+rake("gems:install", :env => "test")
 generate("rspec")
 
+gem('term-ansicolor') 
+gem('treetop')
+gem('diff-lcs') 
+gem('nokogiri') 
+gem('builder')
+gem('cucumber', :version => ">= 0.3.0", :env => 'test')
+gem('webrat', :version => ">= 0.4.4", :env => 'test')
 
+rake("gems:install", :env => "test")
 
-#gem install term-ansicolor treetop diff-lcs nokogiri builder
-
-# gem cucumber-0.3.0
-# gem webrat-0.4.4 - http://gitrdoc.com/brynary/webrat/tree/master/
-
-# generate("cucumber")
+generate("cucumber")
 
 # config.gem "remarkable_rails", :lib => false, :version => ">= 3.0.3"
 # gem remarkable_rails-3.0.3 http://github.com/carlosbrando/remarkable/tree/master
@@ -28,3 +31,8 @@ generate("rspec")
 
 
 
+#git :add => "."
+#git :commit => "-m 'added bdd_stack'"
+
+# references:
+# webrat-0.4.4 - http://gitrdoc.com/brynary/webrat/tree/master/
