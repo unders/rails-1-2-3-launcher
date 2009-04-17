@@ -5,12 +5,12 @@ git :init
  
 file('.gitignore') do
   '.DS_Store
-  config/database.yml
-  coverage/*
-  db/*.sqlite3
-  db/schema.rb
-  log/*.log
-  tmp/**/*'
+config/database.yml
+coverage/*
+db/*.sqlite3
+db/schema.rb
+log/*.log
+tmp/**/*'
 end 
  
 # tell git to hold empty directories
