@@ -15,9 +15,9 @@ gem('webrat', :version => ">= 0.4.4", :env => 'test')
 
 rake("gems:install", :env => "test", :sudo => true)
 
-#generate("cucumber")
+generate("cucumber")
 
-# config.gem "remarkable_rails", :lib => false, :version => ">= 3.0.3"
+gem('remarkable_rails', :lib => false, :version => ">= 3.0.3", :env => 'test')
 # gem remarkable_rails-3.0.3 http://github.com/carlosbrando/remarkable/tree/master
 
 # And then require remarkable inside your spec_helper.rb, after "spec/rails":
