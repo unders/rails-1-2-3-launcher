@@ -4,6 +4,7 @@
 git :init
 
 # Set up .gitignore files
+
 file '.gitignore', <<-END
 .DS_Store
 config/database.yml
@@ -12,7 +13,9 @@ db/*.sqlite3
 db/schema.rb
 log/*.log
 tmp/**/*
+
 END
+
  
 # tell git to hold empty directories
 run "touch log/.gitignore tmp/.gitignore vendor/.gitignore"

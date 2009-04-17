@@ -1,24 +1,25 @@
-# add rspec and rspec-rails gem dependencies in config/environments/test.rb
-gem('rspec', :lib => false, :version => ">= 1.2.4", :env => 'test')
-gem('rspec-rails', :lib => false, :version => ">= 1.2.4", :env => 'test')
+# All gems are added to config/environments/test.rb and installed to the system if not already installed.
+gem 'rspec', :lib => false, :version => ">= 1.2.4", :env => 'test'
+gem 'rspec-rails', :lib => false, :version => ">= 1.2.4", :env => 'test'
 
-rake("gems:install", :env => "test", :sudo => true)
-generate("rspec")
+rake "gems:install", :env => "test", :sudo => true
+generate "rspec"
 
-gem('term-ansicolor', :env => 'test') 
-gem('treetop', :env => 'test')
-gem('diff-lcs', :env => 'test') 
-gem('nokogiri', :env => 'test') 
-gem('builder', :env => 'test')
-gem('cucumber', :version => ">= 0.3.0", :env => 'test')
-gem('webrat', :version => ">= 0.4.4", :env => 'test')
+gem 'term-ansicolor', :env => 'test'
+gem 'treetop', :env => 'test'
+gem 'diff-lcs', :env => 'test' 
+gem 'nokogiri', :env => 'test' 
+gem 'builder', :env => 'test'
+gem 'cucumber', :version => ">= 0.3.0", :env => 'test'
+gem 'webrat', :version => ">= 0.4.4", :env => 'test'
 
-rake("gems:install", :env => "test", :sudo => true)
+rake "gems:install", :env => "test", :sudo => true
 
-generate("cucumber")
+generate "cucumber" 
 
-gem('remarkable_rails', :lib => false, :version => ">= 3.0.3", :env => 'test')
-# gem remarkable_rails-3.0.3 http://github.com/carlosbrando/remarkable/tree/master
+gem 'remarkable_rails', :lib => false, :version => ">= 3.0.3", :env => 'test'
+file_inject 'spec/spec_helper.rb', "require 'spec/rails'", "require 'remarkable_rails'"
+
 
 # And then require remarkable inside your spec_helper.rb, after "spec/rails":
 # require 'spec/rails'
