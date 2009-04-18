@@ -25,10 +25,10 @@ gem 'bmabey-email_spec', :version => '>= 0.1.3',
 file_inject 'features/support/env.rb', "require 'cucumber/rails/world'", "require 'email_spec/cucumber'"                          
 file_inject 'spec/spec_helper.rb', 
             "require 'remarkable_rails'", 
-            "require 'email_spec/helpers \n require 'email_spec/matchers'"
+            "require 'email_spec/helpers \nrequire 'email_spec/matchers'"
 file_inject 'spec/spec_helper.rb', 
             'Spec::Runner.configure do |config|',  
-            "config.include(EmailSpec::Helpers) \n config.include(EmailSpec::Matchers)"           
+            "  config.include(EmailSpec::Helpers) \n  config.include(EmailSpec::Matchers)"           
 
 rake "gems:install", :env => "test", :sudo => true                         
 generate :email_spec
