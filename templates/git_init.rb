@@ -3,8 +3,7 @@
 #########################
 git :init
 
-# Set up .gitignore files
-
+# Set up .gitignore
 file '.gitignore', <<-END
 .DS_Store
 config/database.yml

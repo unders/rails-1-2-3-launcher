@@ -1,15 +1,20 @@
-# Delete unnecessary files
-run "rm README"
-run "rm public/index.html"
-run "rm public/favicon.ico"
-run "rm public/robots.txt"
-run "rm public/images/rails.png"
+# Remove tmp directories
+%w[tmp/pids tmp/sessions tmp/sockets tmp/cache].each do |dir|
+  run("rm -rf #{dir}")
+end
+ 
+# Delete unnecessary files.
+%w[README doc/README_FOR_APP public/index.html public/favicon.ico 
+   public/robots.txt public/images/rails.png].each do |file|
+  run("rm #{file}")
+end
 run "rm -f public/javascripts/*"
 
 git :add => "-u"
 git :commit => "-m 'removed files: README, 
-                                      public/index.html, 
-                                      public/favicon.ico, 
-                                      public/robots.txt, 
-                                      public/images/rails.png,
-                                      public/javascripts/*'"
+                                   doc/README_FOR_APP
+                                   public/index.html, 
+                                   public/favicon.ico, 
+                                   public/robots.txt, 
+                                   public/images/rails.png,
+                                   public/javascripts/*'"
