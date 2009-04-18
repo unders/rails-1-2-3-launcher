@@ -25,7 +25,7 @@ gem 'bmabey-email_spec', :version => '>= 0.1.3',
 file_inject 'features/support/env.rb', "require 'cucumber/rails/world'", "require 'email_spec/cucumber'"                          
 file_inject 'spec/spec_helper.rb', 
             "require 'remarkable_rails'", 
-            "require 'email_spec/helpers \nrequire 'email_spec/matchers'"
+            "require 'email_spec/helpers' \nrequire 'email_spec/matchers'"
 file_inject 'spec/spec_helper.rb', 
             'Spec::Runner.configure do |config|',  
             "  config.include(EmailSpec::Helpers) \n  config.include(EmailSpec::Matchers)"           
@@ -33,11 +33,12 @@ file_inject 'spec/spec_helper.rb',
 rake "gems:install", :env => "test", :sudo => true                         
 generate :email_spec
 
-
+# http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
+# http://github.com/drnic/jsunittest/tree/master
 
 # gem 'notahat-machinist', :lib => 'machinist', :env => 'test', :source => "http://gems.github.com"
 
-
+# http://github.com/notahat/time_travel/tree/master
 
 # gem 'sevenwire-forgery', :lib => 'forgery', :env => 'test', :source => 'http://gems.github.com'
 # generate :forgery
@@ -48,6 +49,10 @@ generate :email_spec
 # gem install populator-0.2.5 - http://github.com/ryanb/populator/tree/master
 
 # metric_fu
+# http://github.com/unboxed/be_valid_asset/tree/master <- for rspec
+# http://github.com/unders/spider_test/tree/master
+# http://github.com/wr0ngway/assert_valid_markup/tree/master
+# sudo gem install fakeweb
 
 #git :add => "."
 #git :commit => "-m 'added bdd_stack'"
