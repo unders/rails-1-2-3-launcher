@@ -17,8 +17,9 @@ That will generate a Rails app using the generate.rb template found here.
 
 ## Thanks to / Inspirations / Stolen from
 
-* Ryan Bates - http://github.com/ryanb/rails-templates/tree/master
-* James Cox  - http://github.com/imajes/rails-template/tree/master
+ * Ryan Bates  http://github.com/ryanb/rails-templates/tree/master
+ * James Cox   http://github.com/imajes/rails-template/tree/master
+
 --
 
 Copyright (c) 2008 Anders Törnqvist
