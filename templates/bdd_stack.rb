@@ -1,4 +1,7 @@
 # All gems are added to config/environments/test.rb and installed to the system if not already installed.
+
+gem 'ZenTest', :version => ">=4.0.0"
+
 gem 'rspec', :lib => false, :version => ">= 1.2.4", :env => 'test'
 gem 'rspec-rails', :lib => false, :version => ">= 1.2.4", :env => 'test'
 
@@ -116,40 +119,37 @@ end
 
 rake "gems:install", :env => "test", :sudo => true
 
+plugin 'be_valid_asset', :git => 'git://github.com/unboxed/be_valid_asset.git'
+file_inject 'spec/spec_helper.rb',
+            'config.before(:each) { Sham.reset }', 
+            '  config.include BeValidAsset'
+
+file_inject 'spec/spec_helper.rb',
+            'config.include BeValidAsset',            
+            %q{BeValidAsset::Configuration.enable_caching = true
+BeValidAsset::Configuration.cache_path = File.join(RAILS_ROOT, %w(tmp be_valid_asset_cache))}
+            
+# http://github.com/tapajos/integration/tree/master
+# http://integration.rubyforge.org/
+
 # http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
 # http://github.com/drnic/jsunittest/tree/master
 
-# metric_fu
 # http://github.com/unboxed/be_valid_asset/tree/master <- for rspec
 
-# sudo gem install ZenTest
 # http://github.com/unders/spider_test/tree/master
 # config.gem 'relevance-tarantula', :source => "http://gems.github.com", :lib => 'relevance/tarantula'
 
-# http://integration.rubyforge.org/
-# http://github.com/tapajos/integration/tree/master
-
-# http://github.com/wr0ngway/assert_valid_markup/tree/master
 # sudo gem install fakeweb
 
-# Mocka in cucumber
-# http://gist.github.com/80554
-# http://www.brynary.com/2009/2/3/cucumber-step-definition-tip-stubbing-time
-
-# http://www.somethingnimble.com/bliki/deep-test-1_2_0
-# http://www.somethingnimble.com/bliki/deep-test
-# http://deep-test.rubyforge.org/
-# http://wiki.github.com/aslakhellesoy/cucumber/using-rcov-with-cucumber-and-rails
-
-# http://github.com/langalex/culerity/tree/master - Integrates Cucumber and Celerity to test Javascript in webapps.
-
-# http://github.com/brynary/testjour/tree/master
 
 #git :add => "."
 #git :commit => "-m 'added bdd_stack'"
 
 
-# Needs more investigation
+# Needs more investigation:
+
+#1.
 #gem 'ianwhite-pickle', :version => '>= 0.1.12', 
 #                       :lib => 'pickle', 
 #                       :source => 'http://gems.github.com', 
@@ -158,7 +158,18 @@ rake "gems:install", :env => "test", :sudo => true
 #
 #generate :pickle, "paths email"
 
+#2.
+# Mocka in cucumber
+# http://gist.github.com/80554
+# http://www.brynary.com/2009/2/3/cucumber-step-definition-tip-stubbing-time
 
+#3.
+# http://www.somethingnimble.com/bliki/deep-test-1_2_0
+# http://www.somethingnimble.com/bliki/deep-test
+# http://deep-test.rubyforge.org/
+# http://wiki.github.com/aslakhellesoy/cucumber/using-rcov-with-cucumber-and-rails
+# http://github.com/langalex/culerity/tree/master - Integrates Cucumber and Celerity to test Javascript in webapps.
+# http://github.com/brynary/testjour/tree/master
 
 # references:
 # webrat-0.4.4 - http://gitrdoc.com/brynary/webrat/tree/master/
