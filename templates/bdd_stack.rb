@@ -235,7 +235,7 @@ namespace :tarantula do
   task :report => :test do
     Dir.glob("tmp/tarantula/**/index.html") do |file|
       if PLATFORM['darwin']
-        system("open \#{f}")
+        system("open \#{file}")
       elsif PLATFORM[/linux/]
         system("firefox \#{file}")
       else
@@ -249,29 +249,32 @@ end
             
 plugin 'integration', :git => 'git://github.com/tapajos/integration.git'
 rakefile("integration.rake") do
-  
-  <<-TASK
-  ENV['SCM'] = 'git'
-  ENV['SKIP_TASKS'] = %w( test:rcov:units
-                          test:rcov:units:verify
-                          test:rcov:functionals
-                          test:rcov:functionals:verify
-                          spec:rcov
-                          spec:rcov:verify
-                          test:selenium:server:start
-                          test_acceptance
-                          test:selenium:server:stop
-                          ).join(",")
-  ENV['NUMBER_OF_BACKUPS_TO_KEEP'] = 5                          
-  TASK
-end
-                                
+<<-TASK
 # http://github.com/tapajos/integration/tree/master
 # http://integration.rubyforge.org/
 
+#ENV['PLUGINS_TO_TEST'] = "brazilian_rails, email"
+#ENV['PLUGINS_TO_SPEC'] = "brazilian_rails"
+#ENV['RAILS_ENV'] = 'development_cache'
+
+ENV['SCM'] = 'git'
+ENV['SKIP_TASKS'] = %w( test:rcov:units
+                        test:rcov:units:verify
+                        test:rcov:functionals
+                        test:rcov:functionals:verify
+                        spec:rcov
+                        spec:rcov:verify
+                        test:selenium:server:start
+                        test_acceptance
+                        test:selenium:server:stop
+                        ).join(",")
+ENV['NUMBER_OF_BACKUPS_TO_KEEP'] = 5                          
+TASK
+end
+                                
+
 # http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
 # http://github.com/drnic/jsunittest/tree/master
-
 
 
 
