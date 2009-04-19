@@ -187,9 +187,9 @@ namespace :tarantula do
   
   desc 'Run tarantula tests and open results in your browser.'
   task :report => :test do
-    Dir.glob("tmp/tarantula/**/index.html") do |file|
+    Dir.glob("tmp/tarantula/**/index.html") do |f|
       if PLATFORM['darwin']
-        system("open #{file}")
+        system("open #{f}")
 TASK
 end            
 # http://github.com/tapajos/integration/tree/master
