@@ -128,6 +128,12 @@ file_inject 'spec/spec_helper.rb',
             'config.include BeValidAsset',            
             %q{BeValidAsset::Configuration.enable_caching = true
 BeValidAsset::Configuration.cache_path = File.join(RAILS_ROOT, %w(tmp be_valid_asset_cache))}
+
+plugin 'spider_test', :git => 'git://github.com/courtenay/spider_test.git'
+generate :integration_test, "spider_test"
+
+# http://github.com/unders/spider_test/tree/master
+
             
 # http://github.com/tapajos/integration/tree/master
 # http://integration.rubyforge.org/
@@ -135,9 +141,8 @@ BeValidAsset::Configuration.cache_path = File.join(RAILS_ROOT, %w(tmp be_valid_a
 # http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
 # http://github.com/drnic/jsunittest/tree/master
 
-# http://github.com/unboxed/be_valid_asset/tree/master <- for rspec
 
-# http://github.com/unders/spider_test/tree/master
+
 # config.gem 'relevance-tarantula', :source => "http://gems.github.com", :lib => 'relevance/tarantula'
 
 # sudo gem install fakeweb
