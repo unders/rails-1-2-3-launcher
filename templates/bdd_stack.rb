@@ -134,7 +134,7 @@ generate :integration_test, "spider_test"
 
 gem 'relevance-tarantula', :version => '>= 0.1.8',
                                   :source => "http://gems.github.com", 
-                                  :lib => 'tarantula',
+                                  :lib => 'relevance/tarantula',
                                   :env => "test"
 
 rake "gems:install", :env => "test", :sudo => true
