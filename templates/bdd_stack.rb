@@ -109,8 +109,8 @@ namespace :db do
 #         product.description = Populator.sentences(2..10)
 #         product.price = [4.99, 19.95, 100]
 #         product.created_at = 2.years.ago..Time.now
-#       end
-#     end
+  end
+end
 CODE
 end
 
