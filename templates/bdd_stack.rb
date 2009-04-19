@@ -44,11 +44,11 @@ generate :forgery
 
 gem 'notahat-machinist', :lib => 'machinist', :source => "http://gems.github.com", :env => 'test'
 file_inject 'spec/spec_helper.rb', 
-            "require File.expand_path(File.dirname(__FILE__) + '/../config/environment')", 
+            "require 'email_spec/matchers'", 
             "require File.expand_path(File.dirname(__FILE__) + '/blueprints')"
 file_inject 'spec/spec_helper.rb',
-            "config.fixture_path = RAILS_ROOT + '/spec/fixtures/'", 
-            'config.before(:each) { Sham.reset }'     
+            'config.include(EmailSpec::Matchers)', 
+            '  config.before(:each) { Sham.reset }'     
 file_inject 'features/support/env.rb',
             "require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')",
             "require File.join(RAILS_ROOT, 'spec', 'blueprints')"
