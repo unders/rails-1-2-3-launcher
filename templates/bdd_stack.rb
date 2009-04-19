@@ -186,7 +186,8 @@ namespace :tarantula do
   end
   
   desc 'Run tarantula tests and open results in your browser.'
- 
+  task :report => :test do
+    Dir.glob("tmp/tarantula/**/index.html") do |file|
 TASK
 end            
 # http://github.com/tapajos/integration/tree/master
