@@ -248,26 +248,24 @@ TASK
 end
             
 plugin 'integration', :git => 'git://github.com/tapajos/integration.git'
-
-#file 'lib/tasks/integration.rake' do
-#<<-TASK
-# http://github.com/tapajos/integration/tree/master
-# http://integration.rubyforge.org/
-# ENV['SCM'] = 'git'
-# ENV['SKIP_TASKS'] = %w( test:rcov:units
-#                         test:rcov:units:verify
-#                         test:rcov:functionals
-#                         test:rcov:functionals:verify
-#                         spec:rcov
-#                         spec:rcov:verify
-#                         test:selenium:server:start
-#                         test_acceptance
-#                         test:selenium:server:stop
-#                         ).join(",")
-# ENV['NUMBER_OF_BACKUPS_TO_KEEP'] = 5                          
-# TASK
-# end
-            
+rakefile("integration.rake") do
+  
+  <<-TASK
+  ENV['SCM'] = 'git'
+  ENV['SKIP_TASKS'] = %w( test:rcov:units
+                          test:rcov:units:verify
+                          test:rcov:functionals
+                          test:rcov:functionals:verify
+                          spec:rcov
+                          spec:rcov:verify
+                          test:selenium:server:start
+                          test_acceptance
+                          test:selenium:server:stop
+                          ).join(",")
+  ENV['NUMBER_OF_BACKUPS_TO_KEEP'] = 5                          
+  TASK
+end
+                                
 # http://github.com/tapajos/integration/tree/master
 # http://integration.rubyforge.org/
 
