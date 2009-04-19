@@ -138,9 +138,9 @@ gem 'relevance-tarantula', :version => '>= 0.1.8',
                                   :env => "test"
 
 rake "gems:install", :env => "test", :sudo => true
-                                                           
+
 file 'lib/tasks/tarantula.rake' do
-<<-CODE
+<<-TASK
 namespace :tarantula do
 
   desc 'Run tarantula tests.'
@@ -175,7 +175,7 @@ namespace :tarantula do
     cp template_path, "test/tarantula/"
   end
 end
-CODE
+TASK
 end            
 # http://github.com/tapajos/integration/tree/master
 # http://integration.rubyforge.org/
