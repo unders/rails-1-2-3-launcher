@@ -190,8 +190,17 @@ namespace :tarantula do
     Dir.glob("tmp/tarantula/**/index.html") do |file|
       if PLATFORM['darwin']
         system("open \#{f}")
+      elsif PLATFORM[/linux/]
+        system("firefox \#{file}")
+      else
+        puts "You can view tarantula results at #{file}"
+      end
+    end
+  end
+end
 TASK
-end            
+end
+            
 # http://github.com/tapajos/integration/tree/master
 # http://integration.rubyforge.org/
 
