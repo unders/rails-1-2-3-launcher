@@ -193,7 +193,7 @@ namespace :tarantula do
       elsif PLATFORM[/linux/]
         system("firefox \#{file}")
       else
-        puts "You can view tarantula results at #{file}"
+        puts "You can view tarantula results at \#{file}"
       end
     end
   end
