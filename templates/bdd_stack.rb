@@ -132,10 +132,14 @@ BeValidAsset::Configuration.cache_path = File.join(RAILS_ROOT, %w(tmp be_valid_a
 plugin 'spider_test', :git => 'git://github.com/courtenay/spider_test.git'
 generate :integration_test, "spider_test"
 
+gem 'htmlentities', :version => '>= 4.0.0'
+gem 'hpricot', :version => '>= 0.8.1'
 gem 'relevance-tarantula', :version => '>= 0.1.8',
                                   :source => "http://gems.github.com", 
                                   :lib => 'relevance/tarantula',
                                   :env => "test"
+
+                                  
 
 rake "gems:install", :env => "test", :sudo => true
 
