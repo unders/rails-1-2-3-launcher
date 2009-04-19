@@ -33,7 +33,7 @@ file_inject 'spec/spec_helper.rb',
 rake "gems:install", :env => "test", :sudo => true                         
 generate :email_spec
 
-gem 'faker', :env => 'test'
+gem 'faker', :version => '>=0.3.1', :env => 'test'
 gem 'sevenwire-forgery', :version => '>= 0.2.2', 
                          :lib => 'forgery', 
                          :source => 'http://gems.github.com', 
@@ -82,19 +82,19 @@ end
                             
 rake "gems:install", :env => "test", :sudo => true
 
- 
-# http://www.benmabey.com/2009/02/05/leveraging-test-data-builders-in-cucumber-steps/
-# http://themomorohoax.com/2009/03/08/rails-machinist-tutorial-machinist-with-cucumber-in-10-minutes
-# http://github.com/notahat/time_travel/tree/master
-
-# sudo gem install ianwhite-pickle
-#script/generate pickle [paths] [email]
-
-# gem 'sevenwire-forgery', :lib => 'forgery', :env => 'test', :source => 'http://gems.github.com'
-# generate :forgery
+plugin 'time_travel', :git => 'git://github.com/notahat/time_travel.git'
 
 
-# faker-0.3.1 - http://faker.rubyforge.org/rdoc/
+gem 'ianwhite-pickle', :version => '>= 0.1.12', 
+                       :lib => 'pickle', 
+                       :source => 'http://gems.github.com', 
+                       :env => 'test'
+rake "gems:install", :env => "test", :sudo => true
+
+generate :pickle, "paths email"
+
+
+
 # gem install populator-0.2.5 - http://github.com/ryanb/populator/tree/master
 
 # http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
@@ -134,3 +134,5 @@ rake "gems:install", :env => "test", :sudo => true
 # webrat-0.4.4 - http://gitrdoc.com/brynary/webrat/tree/master/
 # http://wiki.github.com/bmabey/email-spec/use-cucumber-to-test-email
 # http://wiki.github.com/bmabey/email-spec/use-cucumber-to-test-mailers-in-rails
+# http://www.benmabey.com/2009/02/05/leveraging-test-data-builders-in-cucumber-steps/
+# http://themomorohoax.com/2009/03/08/rails-machinist-tutorial-machinist-with-cucumber-in-10-minutes
