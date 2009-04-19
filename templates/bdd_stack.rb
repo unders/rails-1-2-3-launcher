@@ -42,8 +42,45 @@ gem 'sevenwire-forgery', :version => '>= 0.2.2',
 rake "gems:install", :env => "test", :sudo => true
 generate :forgery
 
-#gem 'notahat-machinist', :lib => 'machinist', :source => "http://gems.github.com", :env => 'test'
+gem 'notahat-machinist', :lib => 'machinist', :source => "http://gems.github.com", :env => 'test'
+file_inject 'spec/spec_helper.rb', 
+            "require File.expand_path(File.dirname(__FILE__) + '/../config/environment')", 
+            "require File.expand_path(File.dirname(__FILE__) + '/blueprints')"
+file_inject 'spec/spec_helper.rb',
+            "config.fixture_path = RAILS_ROOT + '/spec/fixtures/'", 
+            'config.before(:each) { Sham.reset }'     
+file_inject 'features/support/env.rb',
+            "require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')",
+            "require File.join(RAILS_ROOT, 'spec', 'blueprints')"
+            
+file 'spec/blueprints' do
+<<-CODE
+require ‘forgery’
+require 'faker'
 
+# Shams
+# We use forgery (and faker) to make up some test data
+
+Sham.name      { NameForgery.full_name }
+Sham.login     { InternetForgery.user_name }
+Sham.email     { InternetForgery.email_address }
+Sham.password  { BasicForgery.password }
+Sham.string    { BasicForgery.text }
+Sham.text      { LoremIpsumForgery.text }
+ 
+# Blueprints 
+User.blueprint do
+  pwd = Sham.password
+  login { Sham.login }
+  email { Sham.email }
+  password { pwd }
+  password_confirmation { pwd }
+end
+
+CODE
+end            
+                            
+rake "gems:install", :env => "test", :sudo => true
 
  
 # http://www.benmabey.com/2009/02/05/leveraging-test-data-builders-in-cucumber-steps/
