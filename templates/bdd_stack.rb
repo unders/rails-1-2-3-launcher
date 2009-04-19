@@ -184,6 +184,19 @@ namespace :tarantula do
 
     Rake::Task[:tarantula_test].invoke
   end
+  
+  desc 'Run tarantula tests and open results in your browser.'
+  task :report => :test do
+    Dir.glob("tmp/tarantula/**/index.html") do |file|
+      if PLATFORM['darwin']
+        system("open #{file}")
+      elsif PLATFORM[/linux/]
+        system("firefox #{file}")
+      else
+        puts "You can view tarantula results at #{file}"
+      end
+    end
+  end  
 TASK
 end            
 # http://github.com/tapajos/integration/tree/master
