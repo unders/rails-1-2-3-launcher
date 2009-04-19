@@ -189,7 +189,7 @@ namespace :tarantula do
   task :report => :test do
     Dir.glob("tmp/tarantula/**/index.html") do |file|
       if PLATFORM['darwin']
-        system("open #{file}")
+        #system("open #{file}")
 TASK
 end            
 # http://github.com/tapajos/integration/tree/master
