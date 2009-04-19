@@ -132,18 +132,55 @@ BeValidAsset::Configuration.cache_path = File.join(RAILS_ROOT, %w(tmp be_valid_a
 plugin 'spider_test', :git => 'git://github.com/courtenay/spider_test.git'
 generate :integration_test, "spider_test"
 
-# http://github.com/unders/spider_test/tree/master
+config.gem 'relevance-tarantula', :version => '>=0.1.8',
+                                  :source => "http://gems.github.com", 
+                                  :lib => 'relevance/tarantula',
+                                  :env => "test"
 
-            
+file 'lib/tasks/tarantula.rake' do
+<<-CODE
+namespace :tarantula do
+ 
+  desc 'Run tarantula tests.'
+  task :test do
+    rm_rf "tmp/tarantula"
+    task = Rake::TestTask.new(:tarantula_test) do |t|
+      t.libs << 'test'
+      t.pattern = 'test/tarantula/**/*_test.rb'
+      t.verbose = true
+    end
+ 
+    Rake::Task[:tarantula_test].invoke
+  end
+  
+  desc 'Run tarantula tests and open results in your browser.'
+  task :report => :test do
+    Dir.glob("tmp/tarantula/**/index.html") do |file|
+      if PLATFORM['darwin']
+        system("open #{file}")
+      elsif PLATFORM[/linux/]
+        system("firefox #{file}")
+      else
+        puts "You can view tarantula results at #{file}"
+      end
+    end
+  end
+ 
+  desc 'Generate a default tarantula test'
+  task :setup do
+    mkdir_p "test/tarantula"
+    template_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "template", "tarantula_test.rb"))
+    cp template_path, "test/tarantula/"
+  end
+end
+CODE
+end            
 # http://github.com/tapajos/integration/tree/master
 # http://integration.rubyforge.org/
 
 # http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
 # http://github.com/drnic/jsunittest/tree/master
 
-
-
-# config.gem 'relevance-tarantula', :source => "http://gems.github.com", :lib => 'relevance/tarantula'
 
 # sudo gem install fakeweb
 
