@@ -33,29 +33,65 @@ file_inject 'spec/spec_helper.rb',
 rake "gems:install", :env => "test", :sudo => true                         
 generate :email_spec
 
-# http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
-# http://github.com/drnic/jsunittest/tree/master
+gem 'faker', :env => 'test'
+gem 'sevenwire-forgery', :version => '>= 0.2.2', 
+                         :lib => 'forgery', 
+                         :source => 'http://gems.github.com', 
+                         :env => 'test'
 
-# gem 'notahat-machinist', :lib => 'machinist', :env => 'test', :source => "http://gems.github.com"
+rake "gems:install", :env => "test", :sudo => true
+generate :forgery
 
+#gem 'notahat-machinist', :lib => 'machinist', :source => "http://gems.github.com", :env => 'test'
+
+
+ 
+# http://www.benmabey.com/2009/02/05/leveraging-test-data-builders-in-cucumber-steps/
+# http://themomorohoax.com/2009/03/08/rails-machinist-tutorial-machinist-with-cucumber-in-10-minutes
 # http://github.com/notahat/time_travel/tree/master
+
+# sudo gem install ianwhite-pickle
+#script/generate pickle [paths] [email]
 
 # gem 'sevenwire-forgery', :lib => 'forgery', :env => 'test', :source => 'http://gems.github.com'
 # generate :forgery
 
-# sudo gem install notahat-machinist --source http://gems.github.com
 
 # faker-0.3.1 - http://faker.rubyforge.org/rdoc/
 # gem install populator-0.2.5 - http://github.com/ryanb/populator/tree/master
 
+# http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
+# http://github.com/drnic/jsunittest/tree/master
+
 # metric_fu
 # http://github.com/unboxed/be_valid_asset/tree/master <- for rspec
+
+# sudo gem install ZenTest
 # http://github.com/unders/spider_test/tree/master
+# config.gem 'relevance-tarantula', :source => "http://gems.github.com", :lib => 'relevance/tarantula'
+
+# http://integration.rubyforge.org/
+# http://github.com/tapajos/integration/tree/master
+
 # http://github.com/wr0ngway/assert_valid_markup/tree/master
 # sudo gem install fakeweb
 
+# Mocka in cucumber
+# http://gist.github.com/80554
+# http://www.brynary.com/2009/2/3/cucumber-step-definition-tip-stubbing-time
+
+# http://www.somethingnimble.com/bliki/deep-test-1_2_0
+# http://www.somethingnimble.com/bliki/deep-test
+# http://deep-test.rubyforge.org/
+# http://wiki.github.com/aslakhellesoy/cucumber/using-rcov-with-cucumber-and-rails
+
+# http://github.com/langalex/culerity/tree/master - Integrates Cucumber and Celerity to test Javascript in webapps.
+
+# http://github.com/brynary/testjour/tree/master
+
 #git :add => "."
 #git :commit => "-m 'added bdd_stack'"
+
 
 # references:
 # webrat-0.4.4 - http://gitrdoc.com/brynary/webrat/tree/master/

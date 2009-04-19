@@ -3,19 +3,27 @@
 #########################
 git :init
  
-# Set up .gitignore
-file '.gitignore', <<-EOS.gsub(/^  /, '')
-.DS_Store
-config/database.yml
-coverage/*
+# Ignore auto-generated files
+file '.gitignore', 
+%q{coverage/*
+log/*.log
+log/*.pid
+db/*.db
 db/*.sqlite3
 db/schema.rb
-log/*.log
 tmp/**/*
-EOS
+.DS_Store
+doc/api
+doc/app
+config/database.yml
+public/javascripts/all.js
+public/stylesheets/all.js
+coverage/*
+.dotest/*
+}
 
  
-# tell git to hold empty directories
+# Tell git to hold empty directories
 run "touch log/.gitignore tmp/.gitignore vendor/.gitignore"
 run %{find . -type d -empty | grep -v "vendor" | grep -v ".git" | grep -v "tmp" | xargs -I xxx touch xxx/.gitignore}
 

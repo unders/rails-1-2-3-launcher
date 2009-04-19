@@ -1,0 +1,30 @@
+gem validate_options
+http://wiki.github.com/wvanbergen/request-log-analyzer/basic-usage
+include_google_js
+config.gem 'active_presenter'
+
+http://railspikes.com/2008/9/22/is-your-rails-application-safe-from-mass-assignment
+config/initializers/disable_mass_assignment.rb
+ActiveRecord::Base.send(:attr_accessible, nil)
+
+resource_controller
+http://github.com/mattmatt/run_later/tree/master
+http://github.com/jamis/safe_mass_assignment/tree/master
+
+http://github.com/sstephenson/sprockets/tree/master
+http://github.com/sstephenson/sprockets-rails/tree/master
+
+http://github.com/look/xss_terminate/tree
+http://lucaguidi.com/2009/02/23/how-to-use-sprockets-with-rails
+http://www.37signals.com/svn/posts/1587-introducing-sprockets-javascript-dependency-management-and-concatenation
+http://github.com/jodosha/assets_packager/tree/master
+
+http://github.com/henrik/augmentations/tree/master
+
+http://github.com/adamlogic/showoff/tree/master
+
+
+http://github.com/redinger/validation_reflection/tree/master
+http://github.com/justinfrench/formtastic/tree/master
+gem 'justinfrench-formtastic', :lib => 'formtastic', :source  => 'http://gems.github.com'
+http://www.slideshare.net/AaronGustafson/learning-to-love-forms-web-directions-south-07
