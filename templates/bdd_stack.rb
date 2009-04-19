@@ -132,15 +132,17 @@ BeValidAsset::Configuration.cache_path = File.join(RAILS_ROOT, %w(tmp be_valid_a
 plugin 'spider_test', :git => 'git://github.com/courtenay/spider_test.git'
 generate :integration_test, "spider_test"
 
-config.gem 'relevance-tarantula', :version => '>=0.1.8',
+gem 'relevance-tarantula', :version => '>= 0.1.8',
                                   :source => "http://gems.github.com", 
-                                  :lib => 'relevance/tarantula',
+                                  :lib => 'tarantula',
                                   :env => "test"
 
+rake "gems:install", :env => "test", :sudo => true
+                                                           
 file 'lib/tasks/tarantula.rake' do
 <<-CODE
 namespace :tarantula do
- 
+
   desc 'Run tarantula tests.'
   task :test do
     rm_rf "tmp/tarantula"
@@ -149,7 +151,7 @@ namespace :tarantula do
       t.pattern = 'test/tarantula/**/*_test.rb'
       t.verbose = true
     end
- 
+
     Rake::Task[:tarantula_test].invoke
   end
   
@@ -165,7 +167,7 @@ namespace :tarantula do
       end
     end
   end
- 
+
   desc 'Generate a default tarantula test'
   task :setup do
     mkdir_p "test/tarantula"
