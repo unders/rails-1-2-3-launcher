@@ -80,22 +80,41 @@ end
 CODE
 end            
                             
-rake "gems:install", :env => "test", :sudo => true
 
 plugin 'time_travel', :git => 'git://github.com/notahat/time_travel.git'
 
+gem :populator, :version => '>=0.2.5', :env => 'test'
 
-gem 'ianwhite-pickle', :version => '>= 0.1.12', 
-                       :lib => 'pickle', 
-                       :source => 'http://gems.github.com', 
-                       :env => 'test'
+file 'lib/tasks/populate.rake' do
+<<-CODE
+# lib/tasks/populate.rake
+# http://github.com/ryanb/populator/tree/master
+# http://railscasts.com/episodes/126-populating-a-database
+# http://populator.rubyforge.org/
+
+namespace :db do
+  
+  desc "Erase and fill database"
+  task :populate => :environment do
+    require 'populator'
+    require 'faker'
+    
+#    [Category, Product].each(&:delete_all)
+#
+#     Category.populate 20 do |category|
+#       category.name = Populator.words(1..3).titleize
+#       Product.populate 10..100 do |product|
+#         product.category_id = category.id
+#         product.name = Populator.words(1..5).titleize
+#         product.description = Populator.sentences(2..10)
+#         product.price = [4.99, 19.95, 100]
+#         product.created_at = 2.years.ago..Time.now
+#       end
+#     end
+CODE
+end
+
 rake "gems:install", :env => "test", :sudo => true
-
-generate :pickle, "paths email"
-
-
-
-# gem install populator-0.2.5 - http://github.com/ryanb/populator/tree/master
 
 # http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
 # http://github.com/drnic/jsunittest/tree/master
@@ -128,6 +147,17 @@ generate :pickle, "paths email"
 
 #git :add => "."
 #git :commit => "-m 'added bdd_stack'"
+
+
+# Needs more investigation
+#gem 'ianwhite-pickle', :version => '>= 0.1.12', 
+#                       :lib => 'pickle', 
+#                       :source => 'http://gems.github.com', 
+#                       :env => 'test'
+#rake "gems:install", :env => "test", :sudo => true
+#
+#generate :pickle, "paths email"
+
 
 
 # references:
