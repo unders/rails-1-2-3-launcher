@@ -164,7 +164,7 @@ class TarantulaTest < ActionController::IntegrationTest
     #   post '/session', :login => 'quentin', :password => 'monkey'
     #   follow_redirect!
     
-    tarantula_crawl(self)
+    #tarantula_crawl(self)
   end
   
   def test_tarantula_with_tidy
@@ -180,6 +180,38 @@ class TarantulaTest < ActionController::IntegrationTest
     # t.handlers << Relevance::Tarantula::TidyHandler.new
     # t.crawl '/'
    end
+   
+  def test_tarantula_sql_injection_and_xss
+    # You can specify the attack strings that Tarantula throws at your application.
+    # This example adds custom attacks for both SQL injection and XSS. It also tells 
+    # Tarantula to crawl the app 2 times. This is important for XSS attacks because 
+    # the results won’t appear until the second time Tarantula performs the crawl.
+    # t = tarantula_crawler(self)
+    # 
+    #   Relevance::Tarantula::AttackFormSubmission.attacks << {
+    #     :name => :xss,
+    #     :input => "<script>gotcha!</script>",
+    #     :output => "<script>gotcha!</script>",
+    #   }
+    # 
+    #   Relevance::Tarantula::AttackFormSubmission.attacks << {
+    #     :name => :sql_injection,
+    #     :input => "a'; DROP TABLE posts;",
+    #   }
+    # 
+    #   t.handlers << Relevance::Tarantula::AttackHandler.new
+    #   t.fuzzers << Relevance::Tarantula::AttackFormSubmission
+    #   t.times_to_crawl = 2
+    #   t.crawl "/posts"
+  end
+  
+  def test_tarantula_with_timeout
+    # You can specify a timeout for each specific crawl that Tarantula runs.
+    # t = tarantula_crawler(self)
+    #  t.times_to_crawl = 2
+    #  t.crawl_timeout = 5.minutes
+    #  t.crawl "/"
+  end
 end
 CODE
 end  
