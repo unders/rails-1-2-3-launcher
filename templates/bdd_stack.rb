@@ -145,7 +145,7 @@ rake "gems:install", :env => "test", :sudo => true
 
 file 'test/tarantula/tarantula_test.rb' do
 <<-CODE
-require '#{File.dirname(__FILE__)}/../test_helper'
+require 'test_helper'
 require 'relevance/tarantula'
 
 class TarantulaTest < ActionController::IntegrationTest
@@ -166,6 +166,20 @@ class TarantulaTest < ActionController::IntegrationTest
     
     tarantula_crawl(self)
   end
+  
+  def test_tarantula_with_tidy
+    # If you want to set custom options, you can get access to the crawler 
+    # and set properties before running it. For example, this would turn on HTMLTidy.
+    #
+    # post '/session', :login => 'kilgore', :password => 'trout'
+    # assert_response :redirect
+    # assert_redirected_to '/'
+    # follow_redirect!
+
+    # t = tarantula_crawler(self)
+    # t.handlers << Relevance::Tarantula::TidyHandler.new
+    # t.crawl '/'
+   end
 end
 CODE
 end  
