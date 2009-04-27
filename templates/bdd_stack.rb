@@ -267,17 +267,40 @@ ENV['SKIP_TASKS'] = %w( test:rcov:units
                         test:selenium:server:start
                         test_acceptance
                         test:selenium:server:stop
-                        ).join(",")
-ENV['NUMBER_OF_BACKUPS_TO_KEEP'] = 5                          
+                        ).join(",")                          
 TASK
 end
+
+plugin 'rack-bug', :git => 'git://github.com/brynary/rack-bug.git'
+environment('config.middleware.use "Rack::Bug"', :env => 'development')
+
+#http://www.brynary.com/2009/4/22/rack-bug-debugging-toolbar-in-four-minutes
+#http://github.com/brynary/rack-bug/tree/master
                                 
+# sudo gem install fakeweb fakeweb-1.2.0
+
+#Rspec has a similar function built in. You can get benchmark info on your 10 slowest test by adding:
+#--format profile
+#to spec/spec.opts (or passing it as a command line option to the spec script).
+#http://bitfission.com/blog/2009/02/profiling-rspec.html
+
+
+
+# http://github.com/jeremy/ruby-prof/tree/master
+# gem install ruby-prof
+# http://snippets.aktagon.com/snippets/255-How-to-profile-your-Rails-and-Ruby-applications-with-ruby-prof
+
+#http://github.com/grosser/single_test/tree/master
+
+
 
 # http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
 # http://github.com/drnic/jsunittest/tree/master
 
+# * sudo gem install autotest_screen
 
-
+# http://github.com/dchelimsky/rspec-rails/blob/master/generators/rspec/templates/script/spec_server
+# http://wiki.github.com/dchelimsky/rspec/spec_server-autospec-nearly-pure-bdd-joy
 
 #git :add => "."
 #git :commit => "-m 'added bdd_stack'"
@@ -300,7 +323,7 @@ end
 # http://www.brynary.com/2009/2/3/cucumber-step-definition-tip-stubbing-time
 
 #3.
-# sudo gem install fakeweb fakeweb-1.2.0
+
 # http://www.somethingnimble.com/bliki/deep-test-1_2_0
 # http://www.somethingnimble.com/bliki/deep-test
 # http://deep-test.rubyforge.org/
