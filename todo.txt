@@ -1,16 +1,11 @@
-gem validate_options
-http://wiki.github.com/wvanbergen/request-log-analyzer/basic-usage
-include_google_js
-config.gem 'active_presenter'
 
-http://railspikes.com/2008/9/22/is-your-rails-application-safe-from-mass-assignment
-config/initializers/disable_mass_assignment.rb
-ActiveRecord::Base.send(:attr_accessible, nil)
+
+#Reference
+http://wiki.github.com/wvanbergen/request-log-analyzer/basic-usage
+
 
 resource_controller
-http://github.com/jamis/safe_mass_assignment/tree/master
 
-http://github.com/look/xss_terminate/tree
 
 http://github.com/sstephenson/sprockets/tree/master
 http://github.com/sstephenson/sprockets-rails/tree/master
