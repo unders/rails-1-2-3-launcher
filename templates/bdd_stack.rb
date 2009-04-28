@@ -283,6 +283,7 @@ rake "gems:install", :env => "test", :sudo => true
 
 plugin 'rack-bug', :git => 'git://github.com/brynary/rack-bug.git'
 environment('config.middleware.use "Rack::Bug"', :env => 'development')
+
 initializer("middleware.rb") do
 <<-CODE
 require "rack/bug"
