@@ -283,16 +283,16 @@ rake "gems:install", :env => "test", :sudo => true
 
 plugin 'rack-bug', :git => 'git://github.com/brynary/rack-bug.git'
 environment('config.middleware.use "Rack::Bug"', :env => 'development')
-initializer("middleware.rb") do
-<<-CODE
-require "rack/bug"
-
-ActionController::Dispatcher.middleware.use Rack::Bug,
-  :ip_masks   => [IPAddr.new("127.0.0.1")],
-  :secret_key => "epT5uCIchlsHCeR9dloOeAPG66PtHd9K8l0q9avitiaA/KUrY7DE52hD4yWY+8z1",
-  :password   => "rack-bug-secret"
-CODE
-end
+# initializer("middleware.rb") do
+# <<-CODE
+# require "rack/bug"
+# 
+# ActionController::Dispatcher.middleware.use Rack::Bug,
+#   :ip_masks   => [IPAddr.new("127.0.0.1")],
+#   :secret_key => "epT5uCIchlsHCeR9dloOeAPG66PtHd9K8l0q9avitiaA/KUrY7DE52hD4yWY+8z1",
+#   :password   => "rack-bug-secret"
+# CODE
+# end
 
                                 
 # sudo gem install fakeweb fakeweb-1.2.0
