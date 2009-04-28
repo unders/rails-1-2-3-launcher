@@ -19,8 +19,8 @@ end
 
 plugin 'safe_mass_assignment', :git => 'http://github.com/jamis/safe_mass_assignment/tree/master'
 
-gem 'chardet', :version => ">= 0.9.0"
-gem 'html5', :version => ">= 0.10.0", :lib => false
+gem 'chardet', :version => ">= 0.9.0", :lib => false
+gem 'html5', :version => ">= 0.10.0"
 plugin 'xss_terminate', :git => 'git://github.com/look/xss_terminate.git'
 inside('vendor/plugins/xss_terminate/test') do
   run("rm xss_terminate_test.rb")
