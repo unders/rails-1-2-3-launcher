@@ -1,6 +1,6 @@
 # All gems are added to config/environments/test.rb and installed to the system if not already installed.
 
-gem 'ZenTest', :version => ">=4.0.0"
+gem 'ZenTest', :version => ">=4.0.0", :env => 'test'
 
 gem 'rspec', :lib => false, :version => ">= 1.2.4", :env => 'test'
 gem 'rspec-rails', :lib => false, :version => ">= 1.2.4", :env => 'test'
@@ -132,8 +132,8 @@ BeValidAsset::Configuration.cache_path = File.join(RAILS_ROOT, %w(tmp be_valid_a
 plugin 'spider_test', :git => 'git://github.com/courtenay/spider_test.git'
 generate :integration_test, "spider_test"
 
-gem 'htmlentities', :version => '>= 4.0.0'
-gem 'hpricot', :version => '>= 0.8.1'
+gem 'htmlentities', :version => '>= 4.0.0', :env => 'test'
+gem 'hpricot', :version => '>= 0.8.1', :env => 'test'
 gem 'relevance-tarantula', :version => '>= 0.1.8',
                                   :source => "http://gems.github.com", 
                                   :lib => 'relevance/tarantula',
@@ -271,9 +271,12 @@ ENV['SKIP_TASKS'] = %w( test:rcov:units
 TASK
 end
 
+
+gem 'rack-test', :version => '>= 0.2.0',:env => "test"
+rake "gems:install", :env => "development", :sudo => true
+
 plugin 'rack-bug', :git => 'git://github.com/brynary/rack-bug.git'
 environment('config.middleware.use "Rack::Bug"', :env => 'development')
-
 #http://www.brynary.com/2009/4/22/rack-bug-debugging-toolbar-in-four-minutes
 #http://github.com/brynary/rack-bug/tree/master
                                 
@@ -290,6 +293,8 @@ environment('config.middleware.use "Rack::Bug"', :env => 'development')
 # gem install ruby-prof
 # http://snippets.aktagon.com/snippets/255-How-to-profile-your-Rails-and-Ruby-applications-with-ruby-prof
 
+
+
 #http://github.com/grosser/single_test/tree/master
 
 
@@ -302,8 +307,8 @@ environment('config.middleware.use "Rack::Bug"', :env => 'development')
 # http://github.com/dchelimsky/rspec-rails/blob/master/generators/rspec/templates/script/spec_server
 # http://wiki.github.com/dchelimsky/rspec/spec_server-autospec-nearly-pure-bdd-joy
 
-#git :add => "."
-#git :commit => "-m 'added bdd_stack'"
+git :add => "."
+git :commit => "-m 'added bdd_stack'"
 
 
 # Needs more investigation:
