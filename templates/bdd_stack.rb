@@ -283,8 +283,17 @@ rake "gems:install", :env => "test", :sudo => true
 
 plugin 'rack-bug', :git => 'git://github.com/brynary/rack-bug.git'
 environment('config.middleware.use "Rack::Bug"', :env => 'development')
-#http://www.brynary.com/2009/4/22/rack-bug-debugging-toolbar-in-four-minutes
-#http://github.com/brynary/rack-bug/tree/master
+initializer("middleware.rb") do
+<<-CODE
+require "rack/bug"
+
+ActionController::Dispatcher.middleware.use Rack::Bug,
+  :ip_masks   => [IPAddr.new("127.0.0.1")],
+  :secret_key => "epT5uCIchlsHCeR9dloOeAPG66PtHd9K8l0q9avitiaA/KUrY7DE52hD4yWY+8z1",
+  :password   => "rack-bug-secret"
+CODE
+end
+
                                 
 # sudo gem install fakeweb fakeweb-1.2.0
 
@@ -343,6 +352,8 @@ git :commit => "-m 'added bdd_stack'"
 # http://github.com/brynary/testjour/tree/master
 
 # references:
+# http://www.brynary.com/2009/4/22/rack-bug-debugging-toolbar-in-four-minutes
+# http://github.com/brynary/rack-bug/tree/master
 # webrat-0.4.4 - http://gitrdoc.com/brynary/webrat/tree/master/
 # http://wiki.github.com/bmabey/email-spec/use-cucumber-to-test-email
 # http://wiki.github.com/bmabey/email-spec/use-cucumber-to-test-mailers-in-rails

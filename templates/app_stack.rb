@@ -1,0 +1,1 @@
+gem 'validate_options', :version => ">= 0.0.2"
