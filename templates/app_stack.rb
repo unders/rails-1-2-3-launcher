@@ -1,4 +1,4 @@
-initializer("inaccessible_attributes.rb.rb") do
+initializer("inaccessible_attributes.rb") do
 <<-CODE
 ActiveRecord::Base.send(:attr_accessible, nil) 
 
@@ -10,7 +10,7 @@ if Rails.env.test? or Rails.env.development?
 
   ActiveRecord::Base.class_eval do
     def log_protected_attribute_removal(*attributes)
-      raise ActiveRecord::MassAssignmentError, "Can't mass-assign these protected attributes: #{attributes.join(', ')}"
+      raise ActiveRecord::MassAssignmentError, "Can't mass-assign these protected attributes: \#{attributes.join(', ')}"
     end
   end
 end
