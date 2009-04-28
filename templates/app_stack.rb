@@ -24,6 +24,7 @@ gem 'html5', :version => ">= 0.10.0"
 plugin 'xss_terminate', :git => 'git://github.com/look/xss_terminate.git'
 inside('vendor/plugins/xss_terminate/test') do
   run("rm xss_terminate_test.rb")
+  run("rm setup_test.rb")
 end
 
 gem 'validate_options', :version => ">= 0.0.2"
