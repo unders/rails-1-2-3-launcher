@@ -318,6 +318,10 @@ end
 # http://drnicwilliams.com/2008/01/04/autotesting-javascript-in-rails/
 # http://github.com/drnic/jsunittest/tree/master
 
+# or
+
+# http://github.com/relevance/blue-ridge/tree/master
+
 # * sudo gem install autotest_screen
 
 # http://github.com/dchelimsky/rspec-rails/blob/master/generators/rspec/templates/script/spec_server
