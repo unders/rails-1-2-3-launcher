@@ -277,8 +277,8 @@ end
 
 # rack-bug has depency on rack-test and sintra gems; command: rake spec:plugins will fail
 # if they aren't installed
-gem 'rack-test', :version => '>= 0.2.0', :env => "test"
-gem 'sinatra', :version => '>= 0.9.1.1', :env => "test"
+#gem 'rack-test', :version => '>= 0.2.0', :env => "test"
+#gem 'sinatra', :version => '>= 0.9.1.1', :env => "test"
 rake "gems:install", :env => "test", :sudo => true
 
 plugin 'rack-bug', :git => 'git://github.com/brynary/rack-bug.git'
