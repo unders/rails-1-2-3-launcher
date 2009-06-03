@@ -56,9 +56,9 @@ file_inject 'features/support/env.rb',
             "require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')",
             "require File.join(RAILS_ROOT, 'spec', 'blueprints')"
             
-file 'spec/blueprints' do
+file 'spec/blueprints.rb' do
 <<-CODE
-require ‘forgery’
+require 'forgery'
 require 'faker'
 
 # Shams
