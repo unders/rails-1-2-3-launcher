@@ -73,8 +73,7 @@ Sham.text      { LoremIpsumForgery.text }
  
 # Blueprints 
 User.blueprint do
-  pwd = Sham.password
-  login { Sham.login }
+  pwd = "test1234"
   email { Sham.email }
   password { pwd }
   password_confirmation { pwd }

@@ -20,4 +20,21 @@ route "map.root :controller => 'home'"
 
 generate "clearance_features", "-f"
 
+user_factory = <<-RUBY.strip
+user = Factory :user,
+  :email                 => email,
+  :password              => password,
+  :password_confirmation => password
+RUBY
+gsub_file('features/step_definitions/clearance_steps.rb', user_factory, "User.make(:email => email, :password => password, :password_confirmation => password)")
+
+confirmed_user_factory = <<-RUBY.strip
+user = Factory :user,
+  :email                 => email,
+  :password              => password,
+  :password_confirmation => password
+RUBY
+gsub_file('features/step_definitions/clearance_steps.rb', confirmed_user_factory, "User.make(:email => email, :password => password, :password_confirmation => password).confirm_email!")
+
+
 git :add => '.', :commit => '-m "added authentication with clearance"'
