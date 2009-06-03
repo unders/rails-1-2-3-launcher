@@ -15,3 +15,9 @@ else
 end
 DO_NOT_REPLY = "support@elabs.se"
 FILE
+
+route "map.root :controller => 'home'"
+
+generate "clearance_features"
+
+git :add => '.', :commit => '-m "added authentication with clearance"'
