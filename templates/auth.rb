@@ -18,6 +18,6 @@ FILE
 
 route "map.root :controller => 'home'"
 
-generate "clearance_features"
+generate "clearance_features", "-f"
 
 git :add => '.', :commit => '-m "added authentication with clearance"'
