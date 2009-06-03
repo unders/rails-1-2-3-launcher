@@ -4,7 +4,7 @@ rake "gems:install", :sudo => true
 generate "clearance"
 rake "db:migrate"
 
-hostname = ask?("what is the hostname in development?")
+hostname = ask("what is the hostname in development?")
 initializer('clearance.rb', <<-FILE)
 if Rails.env.development?
   HOST = "#{hostname}"
