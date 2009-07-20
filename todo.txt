@@ -1,4 +1,7 @@
 
+# how to handle user registration properly:
+http://github.com/mholling/active_url/tree/master
+
 1. access to the appname
 
 #Reference

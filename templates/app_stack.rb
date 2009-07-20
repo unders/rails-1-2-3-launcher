@@ -27,6 +27,8 @@ inside('vendor/plugins/xss_terminate/test') do
   run("rm setup_test.rb")
 end
 
+plugin 'demeters_revenge', :git => 'git://github.com/caius/demeters_revenge.git'
+
 #gem 'validate_options', :version => ">= 0.0.2"
 #gem 'active_presenter', :version => ">= 1.1.2"
 

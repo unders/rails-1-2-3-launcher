@@ -37,13 +37,13 @@ rake "gems:install", :env => "test", :sudo => true
 generate :email_spec
 
 gem 'faker', :version => '>=0.3.1', :env => 'test'
-gem 'sevenwire-forgery', :version => '>= 0.2.2', 
-                         :lib => 'forgery', 
-                         :source => 'http://gems.github.com', 
-                         :env => 'test'
+# gem 'sevenwire-forgery', :version => '>= 0.2.2', 
+#                          :lib => 'forgery', 
+#                          :source => 'http://gems.github.com', 
+#                          :env => 'test'
 
 rake "gems:install", :env => "test", :sudo => true
-generate :forgery
+#generate :forgery
 
 gem 'notahat-machinist', :lib => 'machinist', :source => "http://gems.github.com", :env => 'test'
 file_inject 'spec/spec_helper.rb', 
@@ -58,18 +58,20 @@ file_inject 'features/support/env.rb',
             
 file 'spec/blueprints.rb' do
 <<-CODE
-require 'forgery'
 require 'faker'
 
 # Shams
 # We use forgery (and faker) to make up some test data
 
-Sham.name      { NameForgery.full_name }
-Sham.login     { InternetForgery.user_name }
-Sham.email     { InternetForgery.email_address }
-Sham.password  { BasicForgery.password }
-Sham.string    { BasicForgery.text }
-Sham.text      { LoremIpsumForgery.text }
+Sham.define do
+  name { Faker::Name.name } 
+  email { Faker::Internet.email }
+  login { Faker::Internet.user_name }
+  title { Faker::Lorem.sentence }
+  text { Faker::Lorem.paragraphs }
+  time { DateTime.civil(1990 + rand(20), rand(12)+1, rand(28)+1, rand(24), rand(60), rand(60)) }
+  date { Date.civil(1990 + rand(20), rand(12)+1, rand(28)+1) }
+end
  
 # Blueprints 
 User.blueprint do
@@ -85,7 +87,7 @@ end
 
 plugin 'time_travel', :git => 'git://github.com/notahat/time_travel.git'
 
-gem :populator, :version => '>=0.2.5', :env => 'test'
+#gem :populator, :version => '>=0.2.5', :env => 'test'
 
 file 'lib/tasks/populate.rake' do
 <<-CODE
@@ -94,25 +96,32 @@ file 'lib/tasks/populate.rake' do
 # http://railscasts.com/episodes/126-populating-a-database
 # http://populator.rubyforge.org/
 
+module Populate
+  extend self
+  
+  def log(model)
+    puts "[populate] created: <#{model.class} #{model.id}>"
+  end
+end
 namespace :db do
   
   desc "Erase and fill database"
-  task :populate => :environment do
-    require 'populator'
-    require 'faker'
+  task :populate => [
+    'db:populate:users'
+  ]
+  
+  namespace :populate do
     
-#    [Category, Product].each(&:delete_all)
-#
-#     Category.populate 20 do |category|
-#       category.name = Populator.words(1..3).titleize
-#       Product.populate 10..100 do |product|
-#         product.category_id = category.id
-#         product.name = Populator.words(1..5).titleize
-#         product.description = Populator.sentences(2..10)
-#         product.price = [4.99, 19.95, 100]
-#         product.created_at = 2.years.ago..Time.now
+    task :setup => :environment do
+      require File.join(Rails.root, 'spec', 'blueprints')
+    end
   end
-end
+  
+  task :users => 'db:populate:setup' do
+    puts "[populate] users"
+    User.delete_all
+    Populate.log User.make(:password => 'test1234', :password_confirmation => 'test1234', :email => "user@test.local").confirm!
+  end
 CODE
 end
 
@@ -128,151 +137,7 @@ file_inject 'spec/spec_helper.rb',
             %q{BeValidAsset::Configuration.enable_caching = true
 BeValidAsset::Configuration.cache_path = File.join(RAILS_ROOT, %w(tmp be_valid_asset_cache))}
 
-plugin 'spider_test', :git => 'git://github.com/courtenay/spider_test.git'
-generate :integration_test, "spider_test"
 
-gem 'htmlentities', :version => '>= 4.0.0', :env => 'test'
-gem 'hpricot', :version => '>= 0.8.1', :env => 'test'
-gem 'relevance-tarantula', :version => '>= 0.1.8',
-                                  :source => "http://gems.github.com", 
-                                  :lib => 'relevance/tarantula',
-                                  :env => "test"
-
-                                  
-
-rake "gems:install", :env => "test", :sudo => true
-
-file 'test/tarantula/tarantula_test.rb' do
-<<-CODE
-require 'test_helper'
-require 'relevance/tarantula'
-
-class TarantulaTest < ActionController::IntegrationTest
-  # Load enough test data to ensure that there's a link to every page in your
-  # application. Doing so allows Tarantula to follow those links and crawl 
-  # every page.  For many applications, you can load a decent data set by
-  # loading all fixtures.
-  fixtures :all
-
-  def test_tarantula
-    # If your application requires users to log in before accessing certain 
-    # pages, uncomment the lines below and update them to allow this test to
-    # log in to your application.  Doing so allows Tarantula to crawl the 
-    # pages that are only accessible to logged-in users.
-    # 
-    #   post '/session', :login => 'quentin', :password => 'monkey'
-    #   follow_redirect!
-    
-    #tarantula_crawl(self)
-  end
-  
-  def test_tarantula_with_tidy
-    # If you want to set custom options, you can get access to the crawler 
-    # and set properties before running it. For example, this would turn on HTMLTidy.
-    #
-    # post '/session', :login => 'kilgore', :password => 'trout'
-    # assert_response :redirect
-    # assert_redirected_to '/'
-    # follow_redirect!
-
-    # t = tarantula_crawler(self)
-    # t.handlers << Relevance::Tarantula::TidyHandler.new
-    # t.crawl '/'
-   end
-   
-  def test_tarantula_sql_injection_and_xss
-    # You can specify the attack strings that Tarantula throws at your application.
-    # This example adds custom attacks for both SQL injection and XSS. It also tells 
-    # Tarantula to crawl the app 2 times. This is important for XSS attacks because 
-    # the results won’t appear until the second time Tarantula performs the crawl.
-    # t = tarantula_crawler(self)
-    # 
-    #   Relevance::Tarantula::AttackFormSubmission.attacks << {
-    #     :name => :xss,
-    #     :input => "<script>gotcha!</script>",
-    #     :output => "<script>gotcha!</script>",
-    #   }
-    # 
-    #   Relevance::Tarantula::AttackFormSubmission.attacks << {
-    #     :name => :sql_injection,
-    #     :input => "a'; DROP TABLE posts;",
-    #   }
-    # 
-    #   t.handlers << Relevance::Tarantula::AttackHandler.new
-    #   t.fuzzers << Relevance::Tarantula::AttackFormSubmission
-    #   t.times_to_crawl = 2
-    #   t.crawl "/posts"
-  end
-  
-  def test_tarantula_with_timeout
-    # You can specify a timeout for each specific crawl that Tarantula runs.
-    # t = tarantula_crawler(self)
-    #  t.times_to_crawl = 2
-    #  t.crawl_timeout = 5.minutes
-    #  t.crawl "/"
-  end
-end
-CODE
-end  
-
-file 'lib/tasks/tarantula.rake' do
-<<-TASK
-namespace :tarantula do
-  desc 'Run tarantula tests.'
-  task :test do
-    rm_rf "tmp/tarantula"
-    task = Rake::TestTask.new(:tarantula_test) do |t|
-      t.libs << 'test'
-      t.pattern = 'test/tarantula/**/*_test.rb'
-      t.verbose = true
-    end
-
-    Rake::Task[:tarantula_test].invoke
-  end
-  
-  desc 'Run tarantula tests and open results in your browser.'
-  task :report => :test do
-    Dir.glob("tmp/tarantula/**/index.html") do |file|
-      if PLATFORM['darwin']
-        system("open \#{file}")
-      elsif PLATFORM[/linux/]
-        system("firefox \#{file}")
-      else
-        puts "You can view tarantula results at \#{file}"
-      end
-    end
-  end
-end
-TASK
-end
-            
-plugin 'integration', :git => 'git://github.com/tapajos/integration.git'
-rakefile("integration.rake") do
-<<-TASK
-# http://github.com/tapajos/integration/tree/master
-# http://integration.rubyforge.org/
-
-#ENV['PLUGINS_TO_TEST'] = "brazilian_rails, email"
-#ENV['PLUGINS_TO_SPEC'] = "brazilian_rails"
-#ENV['RAILS_ENV'] = 'development_cache'
-
-ENV['SCM'] = 'git'
-ENV['SKIP_TASKS'] = %w( test:rcov:units
-                        test:rcov:units:verify
-                        test:rcov:functionals
-                        test:rcov:functionals:verify
-                        spec:rcov
-                        spec:rcov:verify
-                        test:selenium:server:start
-                        test_acceptance
-                        test:selenium:server:stop
-                        ).join(",")                          
-TASK
-end
-
-inside('vendor/plugins/integration/test') do
-  run("rm coverage_test.rb")
-end
 
 # rack-bug has depency on rack-test and sintra gems; command: rake spec:plugins will fail
 # if they aren't installed
