@@ -100,7 +100,7 @@ module Populate
   extend self
   
   def log(model)
-    puts "[populate] created: <#{model.class} #{model.id}>"
+    puts "[populate] created: <\#{model.class} \#{model.id}>"
   end
 end
 namespace :db do
