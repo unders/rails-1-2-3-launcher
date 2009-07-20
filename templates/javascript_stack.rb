@@ -18,3 +18,5 @@ run "touch public/javascripts/application.js"
 
 plugin "blue-ridge", :git => 'git://github.com/unders/blue-ridge.git'
 generate :blue_ridge
+
+git :add => ".", :commit => "-m 'Added jquery and blue-ridge'"
