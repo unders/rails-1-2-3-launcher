@@ -58,6 +58,7 @@ file_inject 'features/support/env.rb',
             
 file 'spec/blueprints.rb' do
 <<-CODE
+require 'machinist/active_record'
 require 'faker'
 
 # Shams
