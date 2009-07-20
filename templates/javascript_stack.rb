@@ -12,3 +12,9 @@
 # or
 
 # http://github.com/relevance/blue-ridge/tree/master
+
+run "curl -s -L http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js > public/javascripts/jquery.js"
+run "touch public/javascripts/application.js"
+
+plugin "blue-ridge", :git => 'git://github.com/relevance/blue-ridge.git'
+generate :blue_ridge
