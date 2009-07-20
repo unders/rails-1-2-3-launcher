@@ -103,25 +103,28 @@ module Populate
     puts "[populate] created: <\#{model.class} \#{model.id}>"
   end
 end
+
 namespace :db do
-  
+
   desc "Erase and fill database"
   task :populate => [
     'db:populate:users'
   ]
-  
+
   namespace :populate do
-    
+
     task :setup => :environment do
       require File.join(Rails.root, 'spec', 'blueprints')
     end
   end
-  
+
   task :users => 'db:populate:setup' do
     puts "[populate] users"
     User.delete_all
     Populate.log User.make(:password => 'test1234', :password_confirmation => 'test1234', :email => "user@test.local").confirm!
   end
+
+end
 CODE
 end
 
