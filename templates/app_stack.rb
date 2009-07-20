@@ -55,6 +55,36 @@ end
 CODE
 end
 
+file 'app/views/layouts/application.html.erb' do
+<<-CODE
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <%= stylesheet_link_tag 'master.css' %>
+  </head>
+  
+  <body>
+    <div id="flash-msg">
+      <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :class => "flash #{name}" %>
+      <%- end -%>
+    </div>
+    
+    <%= yield %>
+
+    <%= javascript_include_tag 'jquery.js', 'application.js' %>
+  </body>
+
+</html>
+CODE
+end
+
 #gem 'validate_options', :version => ">= 0.0.2"
 #gem 'active_presenter', :version => ">= 1.1.2"
 
