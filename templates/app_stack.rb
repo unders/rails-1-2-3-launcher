@@ -72,7 +72,7 @@ file 'app/views/layouts/application.html.erb' do
   <body>
     <div id="flash-msg">
       <%- flash.each do |name, msg| -%>
-        <%= content_tag :div, msg, :class => "flash #{name}" %>
+        <%= content_tag :div, msg, :class => "flash \#{name}" %>
       <%- end -%>
     </div>
     
