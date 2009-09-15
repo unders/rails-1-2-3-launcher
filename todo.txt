@@ -1,29 +1,38 @@
 
+# how to handle user registration properly:
+http://github.com/mholling/active_url/tree/master
+
+1. access to the appname
 
 #Reference
 http://wiki.github.com/wvanbergen/request-log-analyzer/basic-usage
 
 
 resource_controller
+http://github.com/jesperronn/resource_controller_respond_to/tree/master
+
+
 
 
 http://github.com/sstephenson/sprockets/tree/master
 http://github.com/sstephenson/sprockets-rails/tree/master
 http://lucaguidi.com/2009/02/23/how-to-use-sprockets-with-rails
 http://www.37signals.com/svn/posts/1587-introducing-sprockets-javascript-dependency-management-and-concatenation
+
 http://github.com/jodosha/assets_packager/tree/master
+plugin 'asset_packager', :git => 'git://github.com/sbecker/asset_packager.git', :submodule => true<
 
 http://github.com/henrik/augmentations/tree/master
+http://github.com/notahat/wraps_attribute/tree/master
 
-http://github.com/adamlogic/showoff/tree/master
-
-
+http://github.com/vigetlabs/action_button/tree/master
 http://github.com/redinger/validation_reflection/tree/master
 http://github.com/justinfrench/formtastic/tree/master
 gem 'justinfrench-formtastic', :lib => 'formtastic', :source  => 'http://gems.github.com'
 http://www.slideshare.net/AaronGustafson/learning-to-love-forms-web-directions-south-07
 
 http://github.com/jqr/static_pages/tree/master
+http://github.com/arya/simple_nav/tree/master
 
 http://www.therailsway.com/2009/4/6/controller-inheritance
 
@@ -32,5 +41,20 @@ http://github.com/tobi/delayed_job/tree/master
 
 
 http://github.com/tobi/s3_connection/tree/master
-
+http://github.com/ddollar/dependencies/tree/master
+http://github.com/pivotal/desert/tree/master
+http://github.com/pivotal/cacheable-flash/tree/master
+http://github.com/planetargon/flash-message-conductor/tree/master
+http://github.com/jchupp/is_paranoid/tree/master
 http://github.com/troelskn/handsoap/tree/master
+http://github.com/joeyschoblaska/attr_serializable/tree/master
+http://github.com/carlosbrando/autotest-notification/tree/master
+http://github.com/jnicklas/carrierwave/tree/master
+http://github.com/vigetlabs/laziness/tree/master
+
+http://github.com/mbleigh/fetches/tree/master
+http://github.com/mbleigh/uberkit/tree/master
+http://github.com/mbleigh/relates-to/tree/master
+http://github.com/mbleigh/rails-templates/tree/master
+http://github.com/mbleigh/twitter-auth/tree/master
+
