@@ -125,6 +125,8 @@ end
 git :add => "."
 git :commit => "-m 'added lib/tasks/super.rake'"
 
+run "touch public/stylesheets/master.css"
+
 file 'app/views/layouts/application.html.erb' do
 <<-CODE
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
