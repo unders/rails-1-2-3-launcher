@@ -32,8 +32,17 @@ end
 
 file 'app/views/home/index.html.erb' do
 <<-CODE
-<%= link_to 'Login', new_session_path %> or
-<%= link_to 'Sign Up', new_user_path %>
+<%- if signed_in? -%>
+  <p>
+    Welcome <%= current_user.email %>
+    <%= link_to 'Sign out', session_path, :method => :delete %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to 'Login', new_session_path %> or
+    <%= link_to 'Sign Up', new_user_path %>
+  </p>
+<%- end -%>
 CODE
 end  
   
