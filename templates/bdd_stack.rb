@@ -106,11 +106,11 @@ Sham.define do
 end
  
 # Blueprints 
-# User.blueprint do
-#   email                 { Sham.email }
-#   password              { Sham.pwd }
-#   password_confirmation { Sham.pwd }
-# end
+User.blueprint do
+  email                 { Sham.email }
+  password              { Sham.pwd }
+  password_confirmation { Sham.pwd }
+end
 
 # Example
 # User.blueprint do
