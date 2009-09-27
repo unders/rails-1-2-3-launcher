@@ -1,5 +1,63 @@
+initializer("active_record.rb") do 
+<<-CODE
+# encoding: utf-8
+
+class ActiveRecord::Base
+  
+  def self.random
+    random = rand(count)
+    uncached do
+      find(:first, :offset => random)
+    end
+  end
+  
+  def self.per_page(num=nil)
+    @per_page = num if num
+    @per_page || 10
+  end
+  
+  def self.t(name)
+    human_attribute_name(name.to_s)
+  end
+  
+  # mostly for tests
+  def save_and_reload
+    save
+    reload
+  end
+  
+end
+CODE
+end
+
+git :add => "."
+git :commit => "-m 'added active_record.rb initializer'"
+
+initializer("module.rb") do 
+<<-CODE
+# encoding: utf-8
+
+class Module
+
+  # A version of Rails' delegate method which enables the prefix and allow_nil
+  def soft_delegate(*attrs)
+    options = attrs.extract_options!
+    options[:prefix] = true unless options.has_key?(:prefix)
+    options[:allow_nil] = true unless options.has_key?(:allow_nil)
+    attrs.push(options)
+    delegate *attrs
+  end
+  
+end
+CODE
+end
+git :add => "."
+git :commit => "-m 'added module.rb initializer'"
+
 initializer("inaccessible_attributes.rb") do
 <<-CODE
+# encoding: utf-8
+
 ActiveRecord::Base.send(:attr_accessible, nil) 
 
 if Rails.env.test? or Rails.env.development?
@@ -16,20 +74,28 @@ if Rails.env.test? or Rails.env.development?
 end
 CODE
 end
-
-#plugin 'safe_mass_assignment', :git => 'http://github.com/jamis/safe_mass_assignment/tree/master'
-
-#gem 'chardet', :version => ">= 0.9.0", :lib => false
-#gem 'html5', :version => ">= 0.10.0"
+git :add => "."
+git :commit => "-m 'added inaccessible_attributes.rb initializer'"
+ 
+# gem 'chardet', :version => ">= 0.9.0", :lib => false
+# gem 'html5', :version => ">= 0.10.0"
+# To sanitize HTML with HTML5Lib (gem install html5 to get it), use the :html5lib_sanitize 
+# option with a list of fields to sanitize:
 plugin 'xss_terminate', :git => 'git://github.com/look/xss_terminate.git'
 inside('vendor/plugins/xss_terminate/test') do
   run("rm xss_terminate_test.rb")
   run("rm setup_test.rb")
 end
+git :add => "."
+git :commit => "-m 'added xss_terminate'"
 
 plugin 'demeters_revenge', :git => 'git://github.com/caius/demeters_revenge.git'
+git :add => "."
+git :commit => "-m 'added demeters_revenge'"
 
-gem 'justinfrench-formtastic', :lib => 'formtastic', :source => "http://gems.github.com", :version => '>=0.2.1'
+gem 'justinfrench-formtastic', :lib => 'formtastic', :source => "http://gems.github.com", :version => '>=0.2.4'
+git :add => "."
+git :commit => "-m 'added justinfrench-formtastic'"
 
 file 'lib/tasks/ci.rake' do
 <<-CODE
@@ -43,6 +109,8 @@ namespace :ci do
 end
 CODE
 end
+git :add => "."
+git :commit => "-m 'added lib/tasks/ci.rake'"
 
 file 'lib/tasks/super.rake' do
 <<-CODE
@@ -50,10 +118,12 @@ task :supermigrate => ['environment', 'db:migrate', 'db:test:prepare'] do
   %x(cd \#{RAILS_ROOT} && annotate)
 end
 
-task :superspec => ['spec', 'features'] do
+task :superspec => ['spec', 'cucumber'] do
 end
 CODE
 end
+git :add => "."
+git :commit => "-m 'added lib/tasks/super.rake'"
 
 file 'app/views/layouts/application.html.erb' do
 <<-CODE
@@ -85,8 +155,6 @@ file 'app/views/layouts/application.html.erb' do
 CODE
 end
 
-#gem 'validate_options', :version => ">= 0.0.2"
-#gem 'active_presenter', :version => ">= 1.1.2"
 
-#rake "gems:install", :sudo => true
-#rake "gems:unpack"
+git :add => "."
+git :commit => "-m 'added layout file: app/views/layouts/application.html.erb'"
