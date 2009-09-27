@@ -1,4 +1,4 @@
-gem "thoughtbot-clearance", :lib => 'clearance', :source  => 'http://gems.github.com',  :version => '>=0.6.4'
+gem "thoughtbot-clearance", :lib => 'clearance', :source  => 'http://gems.github.com',  :version => '>=0.8.2'
 rake "gems:install", :sudo => true
 
 generate "clearance"
@@ -19,7 +19,24 @@ FILE
 route "map.root :controller => 'home'"
 
 generate "clearance_features", "-f"
+generate "clearance_views"
 
+file 'app/controllers/home_controller.rb' do
+<<-CODE
+class HomeController < ApplicationController
+  def index
+  end
+end
+CODE
+end
+
+file 'app/views/home/index.html.erb' do
+<<-CODE
+<%= link_to 'Login', new_session_path %> or
+<%= link_to 'Sign Up', new_user_path %>
+CODE
+end  
+  
 user_factory = <<-RUBY.strip
   user = Factory :user,
     :email                 => email,
