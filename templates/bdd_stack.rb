@@ -1,6 +1,8 @@
 # All gems are added to config/environments/test.rb and installed to the system if not already installed.
 
 gem 'ZenTest', :version => ">=4.1.4", :env => 'test'
+gem 'mocha', :version => '>=0.9.5', :env => 'test'
+gem 'annotate-models', :env => 'development' 
 
 gem 'rspec', :lib => false, :version => ">= 1.2.8", :env => 'test'
 gem 'rspec-rails', :lib => false, :version => ">= 1.2.7.1", :env => 'test'
@@ -49,12 +51,12 @@ generate :email_spec
 git :add => "."
 git :commit => "-m 'added email_spec dependency to test environment'"
 
-
+gem 'random_data', :version => '>=1.5.0', :env => 'test'
 gem 'faker', :version => '>=0.3.1', :env => 'test'
 rake "gems:install", :env => "test", :sudo => true
 
 git :add => "."
-git :commit => "-m 'added faker dependency to test environment'"
+git :commit => "-m 'added faker and random_data as dependencies to test environment'"
 
 
 gem 'notahat-machinist', :lib => 'machinist', :source => "http://gems.github.com", :env => 'test'
@@ -76,6 +78,7 @@ file 'spec/blueprints.rb' do
 require 'machinist/active_record'
 require 'sham'
 require 'faker'
+require 'random_data'
 
 # In Textmate use: http://github.com/drnic/ruby-machinist-tmbundle/
 # Consider a BlogPost that has many BlogComments in a blog app. If you go to your blueprints.rb file, type "BlogPost" 

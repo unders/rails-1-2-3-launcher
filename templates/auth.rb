@@ -1,3 +1,4 @@
+gem "thoughtbot-factory_girl" , :source => 'http://gems.github.com', :env => 'development'
 gem "thoughtbot-clearance", :lib => 'clearance', :source  => 'http://gems.github.com',  :version => '>=0.8.2'
 rake "gems:install", :sudo => true
 
