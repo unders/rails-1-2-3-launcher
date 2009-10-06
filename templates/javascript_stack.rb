@@ -16,9 +16,12 @@
 
 run "curl -s -L http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js > public/javascripts/jquery.js"
 run "touch public/javascripts/application.js"
-git :add => ".", :commit => "-m 'Added jquery'"
+git :add => "."
+git :commit => "-m 'Added jquery'"
  
 plugin "blue-ridge", :git => 'git://github.com/unders/blue-ridge.git'
 generate :blue_ridge
 
-git :add => ".", :commit => "-m 'Added blue-ridge'"
+git :add => "."
+git :add => "-u"
+git :commit => "-m 'Added blue-ridge'"

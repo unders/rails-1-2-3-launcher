@@ -1,4 +1,8 @@
-gem "thoughtbot-factory_girl" , :source => 'http://gems.github.com', :env => 'development'
+
+# thoughtbot-factory_girl must be present when generating clearence
+gem "thoughtbot-factory_girl" , :source => 'http://gems.github.com', :env => 'test'
+rake "gems:install", :env => "development", :sudo => true
+
 gem "thoughtbot-clearance", :lib => 'clearance', :source  => 'http://gems.github.com',  :version => '>=0.8.2'
 rake "gems:install", :sudo => true
 
@@ -67,4 +71,6 @@ in_root do
   run("rm features/step_definitions/factory_girl_steps.rb")
 end
 
-git :add => '.', :commit => '-m "added authentication with clearance"'
+git :add => '.'
+git :add => "-u"
+git :commit => '-m "added authentication with clearance"'
