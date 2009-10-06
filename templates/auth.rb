@@ -1,6 +1,6 @@
 
 # thoughtbot-factory_girl must be present when generating clearence
-gem "thoughtbot-factory_girl" , :source => 'http://gems.github.com', :env => 'test'
+gem 'thoughtbot-factory_girl', :source => 'http://gems.github.com', :version => '>=1.2.2', :lib => "factory_girl", :env => 'development'
 rake "gems:install", :env => "development", :sudo => true
 
 gem "thoughtbot-clearance", :lib => 'clearance', :source  => 'http://gems.github.com',  :version => '>=0.8.2'

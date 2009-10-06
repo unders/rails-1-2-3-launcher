@@ -93,9 +93,41 @@ plugin 'demeters_revenge', :git => 'git://github.com/caius/demeters_revenge.git'
 git :add => "."
 git :commit => "-m 'added demeters_revenge'"
 
+#I18n
+run "curl -s -L http://github.com/unders/rails-i18n/raw/master/rails/locale/sv.yml > config/locales/sv.yml"
+run "curl -s -L http://github.com/unders/rails-i18n/raw/master/rails/locale/en.yml > config/locales/en.yml"
+
+# in environments/test.rb
+# config.i18n.default_locale = :en
+
+#in routes.rb
+#map.filter 'locale'
+
+# in application_controller.rb
+#   before_filter :set_locale
+# 
+# private
+# 
+#   def set_locale
+#     parsed_locale = params[:locale]
+#     if parsed_locale.present? and I18n.backend.available_locales.include?(parsed_locale.to_sym)
+#       I18n.locale = parsed_locale
+#     else
+#       I18n.locale = I18n.default_locale
+#     end
+#   end
+
+# routing filter plugin
+
+git :add => "."
+git :commit => "-m 'added en.yml and sv.yml localization file'"
+
+
 gem 'justinfrench-formtastic', :lib => 'formtastic', :source => "http://gems.github.com", :version => '>=0.2.4'
 git :add => "."
 git :commit => "-m 'added justinfrench-formtastic'"
+
+# validation_reflection plugin
 
 file 'lib/tasks/ci.rake' do
 <<-CODE

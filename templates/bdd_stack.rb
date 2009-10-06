@@ -1,6 +1,6 @@
 # All gems are added to config/environments/test.rb and installed to the system if not already installed.
 
-gem 'annotate-models', :env => 'test'
+gem 'annotate-models', :version => '>=1.0.4', :lib => false, :env => 'development'
 
 gem 'ZenTest', :version => ">=4.1.4", :env => 'test'
 gem 'mocha', :version => '>=0.9.5', :env => 'test'
@@ -20,10 +20,12 @@ git :commit => "-m 'added rspec dependency to test environment'"
   gem package, :lib => false, :env => 'test'
 end
 
-gem 'cucumber', :version => ">= 0.3.103", :env => 'test'
+gem 'cucumber', :version => ">= 0.3.104", :env => 'test'
 gem 'webrat', :version => ">= 0.5.0", :env => 'test'
 rake "gems:install", :env => "test", :sudo => true
 generate "cucumber" 
+
+gsub_file('features/support/env.rb', 'ENV["RAILS_ENV"] ||= "cucumber"', 'ENV["RAILS_ENV"] ||= "test"') 
 
 git :add => "."
 git :commit => "-m 'added cucumber and webrat dependencies to test environment'"
