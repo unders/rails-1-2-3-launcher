@@ -18,11 +18,12 @@ doc/app
 config/database.yml
 public/javascripts/all.js
 public/stylesheets/all.js
-coverage/*
 .dotest/*
 spec/fixtures/*.yml
 spec/javascripts/fixtures/*.html
 public/uploads
+webrat-*.html
+.idea/*
 }
 
  
