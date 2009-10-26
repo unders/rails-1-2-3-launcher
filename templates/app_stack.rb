@@ -123,9 +123,9 @@ git :add => "."
 git :commit => "-m 'added en.yml and sv.yml localization file'"
 
 
-gem 'justinfrench-formtastic', :lib => 'formtastic', :source => "http://gems.github.com", :version => '>=0.2.4'
+gem 'formtastic', :lib => 'formtastic', :version => '>=0.9.0'
 git :add => "."
-git :commit => "-m 'added justinfrench-formtastic'"
+git :commit => "-m 'added formtastic'"
 
 # validation_reflection plugin
 
