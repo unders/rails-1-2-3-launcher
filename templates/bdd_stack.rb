@@ -5,8 +5,8 @@ gem 'annotate-models', :version => '>=1.0.4', :lib => false, :env => 'developmen
 gem 'ZenTest', :version => ">=4.1.4", :env => 'test'
 gem 'mocha', :version => '>=0.9.5', :env => 'test'
 
-gem 'rspec', :lib => false, :version => ">= 1.2.8", :env => 'test'
-gem 'rspec-rails', :lib => false, :version => ">= 1.2.7.1", :env => 'test'
+gem 'rspec', :lib => false, :version => ">= 1.2.9", :env => 'test'
+gem 'rspec-rails', :lib => false, :version => ">= 1.2.9", :env => 'test'
 
 
 rake "gems:install", :env => "test", :sudo => true
@@ -16,12 +16,13 @@ git :add => "."
 git :commit => "-m 'added rspec dependency to test environment'"
 
 # Cucumber gem dependencies
-%w{term-ansicolor treetop diff-lcs nokogiri builder}.each do |package|
+gem 'term-ansicolor', :lib => false, :version =>  ">=1.0.4", :env => "test"
+%w{treetop diff-lcs nokogiri builder}.each do |package|
   gem package, :lib => false, :env => 'test'
 end
 
-gem 'cucumber', :version => ">= 0.3.104", :env => 'test'
-gem 'webrat', :version => ">= 0.5.0", :env => 'test'
+gem 'cucumber', :version => ">= 0.4.2", :env => 'test'
+gem 'webrat', :version => ">= 0.5.3", :env => 'test'
 rake "gems:install", :env => "test", :sudo => true
 generate "cucumber" 
 
@@ -30,7 +31,7 @@ gsub_file('features/support/env.rb', 'ENV["RAILS_ENV"] ||= "cucumber"', 'ENV["RA
 git :add => "."
 git :commit => "-m 'added cucumber and webrat dependencies to test environment'"
 
-gem 'remarkable_rails', :lib => false, :version => ">= 3.1.10", :env => 'test'
+gem 'remarkable_rails', :lib => false, :version => ">= 3.1.11", :env => 'test'
 file_inject 'spec/spec_helper.rb', "require 'spec/rails'", "require 'remarkable_rails'"
 
 git :add => "."
@@ -62,7 +63,7 @@ git :add => "."
 git :commit => "-m 'added faker and random_data as dependencies to test environment'"
 
 
-gem 'notahat-machinist', :lib => 'machinist', :source => "http://gems.github.com", :env => 'test'
+gem 'machinist', :lib => 'machinist', :source => "http://gems.github.com", :env => 'test', :version => ">=1.0.5"
 rake "gems:install", :env => "test", :sudo => true
 file_inject 'spec/spec_helper.rb', 
             "require 'email_spec/matchers'", 
@@ -108,14 +109,15 @@ Sham.define do
   price(:unique => false)            { BigDecimal.new("#{rand(1000)}.00") }
   corporate_identity_number          { ("%010d" % rand(10000000000)) }
   quantity(:unique => false)         { rand(10) + 1 }
-  pwd(:unique => false)              { 'test1234' }
+  password(:unique => false)              { 'test1234' }
+  bit(:unique => false) { rand(2) }
 end
  
 # Blueprints 
 User.blueprint do
   email                 { Sham.email }
-  password              { Sham.pwd }
-  password_confirmation { Sham.pwd }
+  password              { Sham.password }
+  password_confirmation { Sham.password }
 end
 
 # Example
@@ -172,12 +174,12 @@ namespace :db do
     task :setup => :environment do
       require File.join(Rails.root, 'spec', 'blueprints')
     end
-  end
 
-  task :users => 'db:populate:setup' do
-    puts "[populate] users"
-    User.delete_all
-    Populate.log User.make(:password => 'test1234', :password_confirmation => 'test1234', :email => "user@test.local").confirm!
+    task :users => 'db:populate:setup' do
+      puts "[populate] users"
+      User.delete_all
+      Populate.log User.make(:password => 'test1234', :password_confirmation => 'test1234', :email => "user@test.local").confirm_email!
+    end
   end
 
 end
