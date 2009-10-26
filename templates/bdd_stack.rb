@@ -63,7 +63,7 @@ git :add => "."
 git :commit => "-m 'added faker and random_data as dependencies to test environment'"
 
 
-gem 'machinist', :lib => 'machinist', :source => "http://gems.github.com", :env => 'test', :version => ">=1.0.5"
+gem 'machinist', :lib => 'machinist', :env => 'test', :version => ">=1.0.5"
 rake "gems:install", :env => "test", :sudo => true
 file_inject 'spec/spec_helper.rb', 
             "require 'email_spec/matchers'", 
@@ -189,9 +189,8 @@ end
 git :add => "."
 git :commit => "-m 'added lib/tasks/populate.rake'"
 
-gem 'unboxed-be_valid_asset', :version => '>= 1.1.0', 
+gem 'be_valid_asset', :version => '>= 1.1.1', 
                               :lib => 'be_valid_asset', 
-                              :source => 'http://gems.github.com',
                               :env => 'test'
                          
 rake "gems:install", :env => "test", :sudo => true
