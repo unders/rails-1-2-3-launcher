@@ -70,6 +70,7 @@ gsub_file('features/step_definitions/clearance_steps.rb', confirmed_user_factory
 
 in_root do
   run("rm features/step_definitions/clearance_steps.rb")
+  run("rm features/step_definitions/factory_girl_steps.rb")
   run("rm features/password_reset.feature")
   run("rm features/sign_in.feature")
   run("rm features/sign_out.feature")
