@@ -77,9 +77,6 @@ end
 git :add => "."
 git :commit => "-m 'added inaccessible_attributes.rb initializer'"
  
-# gem 'chardet', :version => ">= 0.9.0", :lib => false
-# gem 'html5', :version => ">= 0.10.0"
-# To sanitize HTML with HTML5Lib (gem install html5 to get it), use the :html5lib_sanitize 
 # option with a list of fields to sanitize:
 plugin 'xss_terminate', :git => 'git://github.com/look/xss_terminate.git'
 inside('vendor/plugins/xss_terminate/test') do
@@ -123,7 +120,9 @@ git :add => "."
 git :commit => "-m 'added en.yml and sv.yml localization file'"
 
 
-gem 'formtastic', :lib => 'formtastic', :version => '>=0.9.0'
+gem 'formtastic', :lib => 'formtastic', :version => '>=0.9.7'
+rake "gems:install", :sudo => true
+generate "formtastic"
 git :add => "."
 git :commit => "-m 'added formtastic'"
 
@@ -151,6 +150,19 @@ task :supermigrate => ['environment', 'db:migrate', 'db:test:prepare'] do
 end
 
 task :superspec => ['spec', 'cucumber'] do
+end
+CODE
+end
+git :add => "."
+git :commit => "-m 'added lib/tasks/super.rake'"
+
+file 'lib/tasks/capybara.rake' do
+<<-CODE
+namespace :capybara do
+  desc "Deletes all capybara-*.html files in root directory"
+  task :delete_files => :environment do
+    %x(cd \#{Rails.root} && rm capybara-*.html)
+  end
 end
 CODE
 end

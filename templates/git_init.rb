@@ -23,6 +23,7 @@ spec/fixtures/*.yml
 spec/javascripts/fixtures/*.html
 public/uploads
 webrat-*.html
+capybara-*.html
 .idea/*
 }
 

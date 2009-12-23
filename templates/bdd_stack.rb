@@ -1,13 +1,12 @@
 # All gems are added to config/environments/test.rb and installed to the system if not already installed.
 
-gem 'annotate-models', :version => '>=1.0.4', :lib => false, :env => 'development'
+gem 'annotate', :version => '>=2.4.0', :lib => false, :env => 'development'
 
-gem 'ZenTest', :version => ">=4.1.4", :env => 'test'
-gem 'mocha', :version => '>=0.9.5', :env => 'test'
+gem 'ZenTest', :version => ">=4.2.1", :env => 'test'
+gem 'mocha', :version => '>=0.9.8', :env => 'test'
 
 gem 'rspec', :lib => false, :version => ">= 1.2.9", :env => 'test'
 gem 'rspec-rails', :lib => false, :version => ">= 1.2.9", :env => 'test'
-
 
 rake "gems:install", :env => "test", :sudo => true
 generate "rspec"
@@ -15,18 +14,26 @@ generate "rspec"
 git :add => "."
 git :commit => "-m 'added rspec dependency to test environment'"
 
+
+# Capybara gem dependencies
+gem 'culerity', :version =>  ">=0.2.6", :env => "test"
+gem 'ffi', :version =>  ">=0.5.4", :env => "test"
+gem 'selenium-webdriver', :version =>  ">=0.0.13", :env => "test"
+gem 'rack-test', :version =>  ">=0.5.3", :env => "test"
+
 # Cucumber gem dependencies
 gem 'term-ansicolor', :lib => false, :version =>  ">=1.0.4", :env => "test"
-%w{treetop diff-lcs nokogiri builder}.each do |package|
-  gem package, :lib => false, :env => 'test'
-end
-
-gem 'cucumber', :version => ">= 0.4.2", :env => 'test'
-gem 'webrat', :version => ">= 0.5.3", :env => 'test'
+gem 'treetop', :lib => false, :version =>  ">=1.4.3", :env => "test"
+gem 'diff-lcs', :lib => false, :version =>  ">=1.1.2", :env => "test"
+gem 'nokogiri', :lib => false, :version =>  ">=1.4.1", :env => "test"
+gem 'builder', :lib => false, :version =>  ">=2.1.2", :env => "test"
+gem 'json_pure', :lib => false, :version =>  ">=1.2.0", :env => "test"
+# gem 'webrat', :version => ">= 0.6.0", :env => 'test'
+gem 'capybara', :version =>  ">=0.2.0", :env => "test"
+gem 'cucumber-rails', :version => '>=0.2.2', :env => 'test'
+gem 'cucumber', :version => ">=0.5.3", :env => 'test'
 rake "gems:install", :env => "test", :sudo => true
-generate "cucumber" 
-
-gsub_file('features/support/env.rb', 'ENV["RAILS_ENV"] ||= "cucumber"', 'ENV["RAILS_ENV"] ||= "test"') 
+generate "cucumber --capybara" 
 
 git :add => "."
 git :commit => "-m 'added cucumber and webrat dependencies to test environment'"
@@ -37,17 +44,15 @@ file_inject 'spec/spec_helper.rb', "require 'spec/rails'", "require 'remarkable_
 git :add => "."
 git :commit => "-m 'added remarkable-rails to test environment'"
 
-gem 'bmabey-email_spec', :version => '>= 0.3.4', 
-                         :lib => 'email_spec', 
-                         :source => 'http://gems.github.com',
-                         :env => 'test'
+gem 'email_spec', :version => '>= 0.3.7', :lib => 'email_spec', :env => 'test'
 file_inject 'features/support/env.rb', "require 'cucumber/rails/world'", "require 'email_spec/cucumber'"                          
 file_inject 'spec/spec_helper.rb', 
             "require 'remarkable_rails'", 
             "require 'email_spec/helpers' \nrequire 'email_spec/matchers'"
 file_inject 'spec/spec_helper.rb', 
             'Spec::Runner.configure do |config|',  
-            "  config.include(EmailSpec::Helpers) \n  config.include(EmailSpec::Matchers)"           
+            "  config.include(EmailSpec::Helpers) \n  config.include(EmailSpec::Matchers)"   
+file_append('config/environments/cucumber.rb', "config.gem 'email_spec', :lib => 'email_spec', :version => '>= 0.3.7'")      
 
 rake "gems:install", :env => "test", :sudo => true                         
 generate :email_spec
@@ -61,9 +66,9 @@ rake "gems:install", :env => "test", :sudo => true
 
 git :add => "."
 git :commit => "-m 'added faker and random_data as dependencies to test environment'"
-
-
-gem 'machinist', :lib => 'machinist', :env => 'test', :version => ">=1.0.5"
+# 
+# 
+gem 'machinist', :lib => 'machinist', :env => 'test', :version => ">=1.0.6"
 rake "gems:install", :env => "test", :sudo => true
 file_inject 'spec/spec_helper.rb', 
             "require 'email_spec/matchers'", 
@@ -74,7 +79,6 @@ file_inject 'spec/spec_helper.rb',
 file_inject 'features/support/env.rb',
             "require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')",
             "require File.join(RAILS_ROOT, 'spec', 'blueprints')"
-file_append('config/environments/cucumber.rb', "config.gem 'bmabey-email_spec', :lib => 'email_spec', :version => '>= 0.3.4'")             
             
 file 'spec/blueprints.rb' do
 <<-CODE
@@ -109,8 +113,8 @@ Sham.define do
   price(:unique => false)            { BigDecimal.new("#{rand(1000)}.00") }
   corporate_identity_number          { ("%010d" % rand(10000000000)) }
   quantity(:unique => false)         { rand(10) + 1 }
-  password(:unique => false)              { 'test1234' }
-  bit(:unique => false) { rand(2) }
+  password(:unique => false)         { 'test1234' }
+  bit(:unique => false)              { rand(2) }
 end
  
 # Blueprints 
@@ -212,6 +216,18 @@ file_inject 'spec/spec_helper.rb',
   
 git :add => "."
 git :commit => "-m 'added gem dependency be_valid_asset (end of bdd_stack)'"  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

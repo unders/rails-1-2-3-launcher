@@ -1,3 +1,9 @@
+# config.gem 'contextually', :version => '>= 0.0.1', :lib => false
+
+http://github.com/josevalim/inherited_resources
+
+http://github.com/FooBarWidget/default_value_for/
+http://github.com/wvanbergen/request-log-analyzer/
 
 # how to handle user registration properly:
 http://github.com/mholling/active_url/tree/master
@@ -8,12 +14,14 @@ http://github.com/mholling/active_url/tree/master
 http://wiki.github.com/wvanbergen/request-log-analyzer/basic-usage
 
 
-resource_controller
-http://github.com/jesperronn/resource_controller_respond_to/tree/master
+http://github.com/dancroak/blitz
+
+sudo gem install markup_validity
 
 
 
-
+http://github.com/ihoka/viewtastic
+http://github.com/flyerhzm/rails_best_practices
 http://github.com/sstephenson/sprockets/tree/master
 http://github.com/sstephenson/sprockets-rails/tree/master
 http://lucaguidi.com/2009/02/23/how-to-use-sprockets-with-rails
@@ -27,8 +35,7 @@ http://github.com/notahat/wraps_attribute/tree/master
 
 http://github.com/vigetlabs/action_button/tree/master
 http://github.com/redinger/validation_reflection/tree/master
-http://github.com/justinfrench/formtastic/tree/master
-gem 'justinfrench-formtastic', :lib => 'formtastic', :source  => 'http://gems.github.com'
+
 http://www.slideshare.net/AaronGustafson/learning-to-love-forms-web-directions-south-07
 
 http://github.com/jqr/static_pages/tree/master
@@ -41,7 +48,7 @@ http://github.com/tobi/delayed_job/tree/master
 
 
 http://github.com/tobi/s3_connection/tree/master
-http://github.com/ddollar/dependencies/tree/master
+
 http://github.com/pivotal/desert/tree/master
 http://github.com/pivotal/cacheable-flash/tree/master
 http://github.com/planetargon/flash-message-conductor/tree/master
