@@ -19,7 +19,7 @@ git :commit => "-m 'added rspec dependency to test environment'"
 gem 'culerity', :version =>  ">=0.2.6", :env => "test"
 gem 'ffi', :version =>  ">=0.5.4", :env => "test"
 gem 'selenium-webdriver', :version =>  ">=0.0.13", :env => "test"
-gem 'rack-test', :version =>  ">=0.5.3", :env => "test"
+gem 'rack-test', :lib => 'rack', :version =>  ">=0.5.3", :env => "test"
 
 # Cucumber gem dependencies
 gem 'term-ansicolor', :lib => false, :version =>  ">=1.0.4", :env => "test"
@@ -30,7 +30,7 @@ gem 'builder', :lib => false, :version =>  ">=2.1.2", :env => "test"
 gem 'json_pure', :lib => false, :version =>  ">=1.2.0", :env => "test"
 # gem 'webrat', :version => ">= 0.6.0", :env => 'test'
 gem 'capybara', :version =>  ">=0.2.0", :env => "test"
-gem 'cucumber-rails', :version => '>=0.2.2', :env => 'test'
+gem 'cucumber-rails', :cucumber => 'cucumber', :version => '>=0.2.2', :env => 'test'
 gem 'cucumber', :version => ">=0.5.3", :env => 'test'
 rake "gems:install", :env => "test", :sudo => true
 generate "cucumber --capybara" 
@@ -44,11 +44,21 @@ file_inject 'spec/spec_helper.rb', "require 'spec/rails'", "require 'remarkable_
 git :add => "."
 git :commit => "-m 'added remarkable-rails to test environment'"
 
+gem "contextually", :env => 'test', :lib => false, :version => '>=0.1'
+rake "gems:install", :env => "test", :sudo => true
+git :add => "."
+git :commit => "-m 'added contextually to test environment'"
+
+
+
 gem 'email_spec', :version => '>= 0.3.7', :lib => 'email_spec', :env => 'test'
 file_inject 'features/support/env.rb', "require 'cucumber/rails/world'", "require 'email_spec/cucumber'"                          
 file_inject 'spec/spec_helper.rb', 
             "require 'remarkable_rails'", 
             "require 'email_spec/helpers' \nrequire 'email_spec/matchers'"
+file_inject 'spec/spec_helper.rb', 
+            "require 'remarkable_rails'", 
+            "require 'contextually'"
 file_inject 'spec/spec_helper.rb', 
             'Spec::Runner.configure do |config|',  
             "  config.include(EmailSpec::Helpers) \n  config.include(EmailSpec::Matchers)"   
@@ -72,7 +82,7 @@ gem 'machinist', :lib => 'machinist', :env => 'test', :version => ">=1.0.6"
 rake "gems:install", :env => "test", :sudo => true
 file_inject 'spec/spec_helper.rb', 
             "require 'email_spec/matchers'", 
-            "require File.expand_path(File.dirname(__FILE__) + '/blueprints')"
+            "require File.expand_path(File.dirname(__FILE__) + '/blueprints')\nrequire File.expand_path(File.dirname(__FILE__) + '/login_context')"
 file_inject 'spec/spec_helper.rb',
             'config.include(EmailSpec::Matchers)', 
             '  config.before(:each) { Sham.reset(:before_each) }'
@@ -193,6 +203,10 @@ end
 git :add => "."
 git :commit => "-m 'added lib/tasks/populate.rake'"
 
+run "curl -s -L http://github.com/unders/rails-1-2-3-launcher/raw/master/files/login_context.rb > spec/login_context.rb"
+git :add => "."
+git :commit => "-m 'spec/login_context.rb'"
+
 gem 'be_valid_asset', :version => '>= 1.1.1', 
                               :lib => 'be_valid_asset', 
                               :env => 'test'
@@ -206,7 +220,7 @@ file_inject 'spec/spec_helper.rb',
             'config.include BeValidAsset',            
             %q{  BeValidAsset::Configuration.enable_caching = true
   BeValidAsset::Configuration.cache_path = File.join(RAILS_ROOT, %w(tm p be_valid_asset_cache))
-  BeValidAsset::Configuration.display_invalid_content = false (default)
+  BeValidAsset::Configuration.display_invalid_content = false
   BeValidAsset::Configuration.markup_validator_host = 'validator.w3.org'
   BeValidAsset::Configuration.markup_validator_path = '/check'
   BeValidAsset::Configuration.css_validator_host = 'jigsaw.w3.org'

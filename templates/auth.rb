@@ -35,6 +35,8 @@ class HomeController < ApplicationController
 end
 CODE
 end
+run "curl -s -L http://github.com/unders/rails-1-2-3-launcher/raw/master/files/home_controller.rb > app/controllers/home_controller.rb"
+run "curl -s -L http://github.com/unders/rails-1-2-3-launcher/raw/master/files/home_controller_spec.rb > spec/controllers/home_controller_spec.rb"
 
 file 'app/views/home/index.html.erb' do
 <<-CODE

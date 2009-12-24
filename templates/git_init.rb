@@ -24,6 +24,7 @@ spec/javascripts/fixtures/*.html
 public/uploads
 webrat-*.html
 capybara-*.html
+rerun.txt
 .idea/*
 }
 
