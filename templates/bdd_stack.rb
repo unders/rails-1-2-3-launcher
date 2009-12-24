@@ -30,7 +30,7 @@ gem 'builder', :lib => false, :version =>  ">=2.1.2", :env => "test"
 gem 'json_pure', :lib => false, :version =>  ">=1.2.0", :env => "test"
 # gem 'webrat', :version => ">= 0.6.0", :env => 'test'
 gem 'capybara', :version =>  ">=0.2.0", :env => "test"
-gem 'cucumber-rails', :cucumber => 'cucumber', :version => '>=0.2.2', :env => 'test'
+gem 'cucumber-rails', :lib => 'cucumber', :version => '>=0.2.2', :env => 'test'
 gem 'cucumber', :version => ">=0.5.3", :env => 'test'
 rake "gems:install", :env => "test", :sudo => true
 generate "cucumber --capybara" 
