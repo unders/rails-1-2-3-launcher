@@ -1,6 +1,7 @@
 # All gems are added to config/environments/test.rb and installed to the system if not already installed.
 
 gem 'annotate', :version => '>=2.4.0', :lib => false, :env => 'development'
+rake "gems:install", :env => "development"
 
 gem 'ZenTest', :version => ">=4.2.1", :env => 'test'
 gem 'mocha', :version => '>=0.9.8', :env => 'test'
