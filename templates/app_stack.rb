@@ -121,7 +121,7 @@ git :commit => "-m 'added en.yml and sv.yml localization file'"
 
 
 gem 'formtastic', :lib => 'formtastic', :version => '>=0.9.7'
-rake "gems:install", :sudo => true
+rake "gems:install"
 generate "formtastic"
 git :add => "."
 git :commit => "-m 'added formtastic'"

@@ -8,7 +8,7 @@ gem 'mocha', :version => '>=0.9.8', :env => 'test'
 gem 'rspec', :lib => false, :version => ">= 1.2.9", :env => 'test'
 gem 'rspec-rails', :lib => false, :version => ">= 1.2.9", :env => 'test'
 
-rake "gems:install", :env => "test", :sudo => true
+rake "gems:install", :env => "test"
 generate "rspec"
 
 git :add => "."
@@ -32,7 +32,7 @@ gem 'json_pure', :lib => false, :version =>  ">=1.2.0", :env => "test"
 gem 'capybara', :version =>  ">=0.2.0", :env => "test"
 gem 'cucumber-rails', :lib => 'cucumber', :version => '>=0.2.2', :env => 'test'
 gem 'cucumber', :version => ">=0.5.3", :env => 'test'
-rake "gems:install", :env => "test", :sudo => true
+rake "gems:install", :env => "test"
 generate "cucumber --capybara" 
 
 git :add => "."
@@ -45,7 +45,7 @@ git :add => "."
 git :commit => "-m 'added remarkable-rails to test environment'"
 
 gem "contextually", :env => 'test', :lib => false, :version => '>=0.1'
-rake "gems:install", :env => "test", :sudo => true
+rake "gems:install", :env => "test"
 git :add => "."
 git :commit => "-m 'added contextually to test environment'"
 
@@ -64,7 +64,7 @@ file_inject 'spec/spec_helper.rb',
             "  config.include(EmailSpec::Helpers) \n  config.include(EmailSpec::Matchers)"   
 file_append('config/environments/cucumber.rb', "config.gem 'email_spec', :lib => 'email_spec', :version => '>= 0.3.7'")      
 
-rake "gems:install", :env => "test", :sudo => true                         
+rake "gems:install", :env => "test"                         
 generate :email_spec
 
 git :add => "."
@@ -72,14 +72,14 @@ git :commit => "-m 'added email_spec dependency to test environment'"
 
 gem 'random_data', :version => '>=1.5.0', :env => 'test'
 gem 'faker', :version => '>=0.3.1', :env => 'test'
-rake "gems:install", :env => "test", :sudo => true
+rake "gems:install", :env => "test"
 
 git :add => "."
 git :commit => "-m 'added faker and random_data as dependencies to test environment'"
 # 
 # 
 gem 'machinist', :lib => 'machinist', :env => 'test', :version => ">=1.0.6"
-rake "gems:install", :env => "test", :sudo => true
+rake "gems:install", :env => "test"
 file_inject 'spec/spec_helper.rb', 
             "require 'email_spec/matchers'", 
             "require File.expand_path(File.dirname(__FILE__) + '/blueprints')\nrequire File.expand_path(File.dirname(__FILE__) + '/login_context')"
@@ -211,7 +211,7 @@ gem 'be_valid_asset', :version => '>= 1.1.1',
                               :lib => 'be_valid_asset', 
                               :env => 'test'
                          
-rake "gems:install", :env => "test", :sudo => true
+rake "gems:install", :env => "test"
 file_inject 'spec/spec_helper.rb',
             'config.before(:each) { Sham.reset(:before_each) }',
             '  config.include BeValidAsset'
@@ -273,7 +273,7 @@ git :commit => "-m 'added gem dependency be_valid_asset (end of bdd_stack)'"
 # #                       :lib => 'pickle', 
 # #                       :source => 'http://gems.github.com', 
 # #                       :env => 'test'
-# #rake "gems:install", :env => "test", :sudo => true
+# #rake "gems:install", :env => "test"
 # #
 # #generate :pickle, "paths email"
 # 

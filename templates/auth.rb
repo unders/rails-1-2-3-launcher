@@ -1,10 +1,10 @@
 
 # thoughtbot-factory_girl must be present when generating clearence
 gem 'factory_girl', :version => '>=1.2.3', :lib => "factory_girl", :env => 'development'
-rake "gems:install", :env => "development", :sudo => true
+rake "gems:install", :env => "development"
 
 gem "clearance", :lib => 'clearance', :version => '>=0.8.4'
-rake "gems:install", :sudo => true
+rake "gems:install"
 
 generate "clearance"
 rake "db:migrate"
